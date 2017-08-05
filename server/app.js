@@ -13,17 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public/dist')));
 
 app.get('/watson', (req, res) => {
-  const sampleParams = {
-    html: 'bitcoin good, ethereum bad',
-    features: {
-      keywords: { sentiment: true, emotion: true },
-      emotion: {
-        targets: ['bitcoin', 'ethereum', 'litecoin', 'cryptocurrency', 'crypto', 'market'],
-      },
-    },
-  };
+  const text = 'bitcoin good, ethereum bad';
 
-  analyzeSentiment(sampleParams)
+  analyzeSentiment(text)
   .then((data) => {
     res.send(data);
   })

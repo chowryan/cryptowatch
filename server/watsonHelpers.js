@@ -5,8 +5,8 @@ const config = require('../config/apiKeys.js');
 // "url": "https://gateway.watsonplatform.net/natural-language-understanding/api",
 const nlu = new NaturalLanguageUnderstandingV1({
   url: 'https://gateway.watsonplatform.net/natural-language-understanding/api',
-  username: config.WATSON_NLU_API_USERNAME,
-  password: config.WATSON_NLU_API_PASSWORD,
+  username: config.watson.WATSON_NLU_API_USERNAME,
+  password: config.watson.WATSON_NLU_API_PASSWORD,
   version_date: '2017-02-27',
 });
 

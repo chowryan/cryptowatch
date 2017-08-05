@@ -9,7 +9,7 @@ import { createLogger } from 'redux-logger';
 
 // End Redux
 import reducers from './reducers';
-
+import App from './components/App';
 // createLogger can be turned off for product
 const middleware = [thunk, createLogger()];
 
@@ -29,7 +29,7 @@ const store = createStore(reducers, enhancer);
 
 ReactDOM.render(
   <Provider store={store}>
-    {element()}
+    <App />
   </Provider>,
   document.getElementById('app'),
 );

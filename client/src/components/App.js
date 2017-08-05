@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 
 import FixedMenu from './Menu'
 import News from './News';
+import StrategyChart from './StrategyChart';
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +29,8 @@ class App extends Component {
       <div>
         <FixedMenu />
         <News />
+        <h1>homepage</h1>
+        <StrategyChart />
       </div>
     );
   }

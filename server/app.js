@@ -14,12 +14,12 @@ app.use(express.static(path.join(__dirname, '../public/dist')));
 
 app.get('/watson', (req, res) => {
   const sampleParams = {
-    url: 'www.ibm.com',
+    html: 'bitcoin is going up, but litecoin is going down. In the future maybe bitcoin can go up more but the crypto market is so unpredictable, you can\t really rely on it to make money',
+    // html: req.body.text,
     features: {
-      keywords: {
-        sentiment: true,
-        emotion: true,
-        limit: 3,
+      keywords: { sentiment: true, emotion: true },
+      emotion: {
+        targets: ['bitcoin', 'ethereum', 'litecoin', 'cryptocurrency', 'crypto', 'market'],
       },
     },
   };

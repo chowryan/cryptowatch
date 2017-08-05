@@ -17,7 +17,7 @@ class App extends Component {
     this.socket.on('connect', () => {
       // console.log('client side socket connected!');
       this.socket.emit('hello', 'hi');
-    })
+    });
   }
 
   render() {

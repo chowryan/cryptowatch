@@ -3,17 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getRedditPosts } from '../utils/reddit';
-import './css/News.css'
+import './css/News.css';
 import {
   updateNews,
 } from '../actions';
 
 
 class News extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { updateNews } = this.props;
     const subreddit = 'cryptocurrency';
@@ -26,12 +22,11 @@ class News extends Component {
     })
     .catch((err) => {
       console.log(err);
-    })
+    });
   }
 
   render() {
     const { news } = this.props;
-    console.log('$$$$$', news);
     return (
       <div>
         <h1>News</h1>
@@ -39,7 +34,7 @@ class News extends Component {
           <tbody>
             {news.map((item, i) => (
               <tr key={i}>
-                <td><img className="newsimages" src={item.image}></img></td>
+                <td><img alt="news-images" className="newsimages" src={item.image} /></td>
                 <td>{item.title}</td>
                 <td><a href={item.url}>LINK</a></td>
               </tr>

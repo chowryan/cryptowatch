@@ -32,10 +32,10 @@ const config = {
     ],
   },
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
-    // new HtmlWebpackPlugin({
-    //   template: path.join(__dirname, './client/src/index.html'),
-    // }),
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, './client/src/index.html'),
+    }),
     // new webpack.optimize.UglifyJsPlugin(),
     // new webpack.optimize.AggressiveMergingPlugin(),
     // new CompressionPlugin({
@@ -46,7 +46,7 @@ const config = {
     //   minRatio: 0.8,
     // }),
   ],
-  devtool: 'inline-source-map',
+  devtool: '#eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     port: 1337,

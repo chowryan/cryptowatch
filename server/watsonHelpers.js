@@ -2,7 +2,6 @@ const Promise = require('bluebird');
 const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 const config = require('../config/apiKeys.js');
 
-// "url": "https://gateway.watsonplatform.net/natural-language-understanding/api",
 const nlu = new NaturalLanguageUnderstandingV1({
   url: 'https://gateway.watsonplatform.net/natural-language-understanding/api',
   username: config.watson.WATSON_NLU_API_USERNAME,

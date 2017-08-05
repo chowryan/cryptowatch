@@ -13,7 +13,7 @@ const auth = {
   timestamp: '',
 };
 
-socket.emit('subscribe', { my: 'data' });
+socket.emit('subscribe', auth);
 console.log(socket);
 socket.on('connect', () => console.log(socket));
 socket.on('event', (data) => console.log(data));

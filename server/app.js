@@ -14,13 +14,15 @@ app.use(express.static(path.join(__dirname, '../public/dist')));
 
 app.get('/watson', (req, res) => {
   const sampleParams = {
-    html: '<html><head><title>Fruits</title></head><body><h1>Apples and Oranges</h1><p>I love apples! I don\'t like oranges.</p></body></html>',
+    html: 'bitcoin good, ethereum bad',
     features: {
+      keywords: { sentiment: true, emotion: true },
       emotion: {
-        targets: ['apples', 'oranges'],
+        targets: ['bitcoin', 'ethereum', 'litecoin', 'cryptocurrency', 'crypto', 'market'],
       },
     },
   };
+
   analyzeSentiment(sampleParams)
   .then((data) => {
     res.send(data);

@@ -9,7 +9,17 @@ const nlu = new NaturalLanguageUnderstandingV1({
   version_date: '2017-02-27',
 });
 
-const analyzeSentiment = params => new Promise((resolve, reject) => {
+const analyzeSentiment = text => new Promise((resolve, reject) => {
+  const params = {
+    html: text,
+    features: {
+      keywords: { sentiment: true, emotion: true },
+      emotion: {
+        targets: ['bitcoin', 'ethereum', 'litecoin', 'cryptocurrency', 'crypto', 'market'],
+      },
+    },
+  };
+
   nlu.analyze(params, (err, response) => {
     if (err) {
       reject(err);

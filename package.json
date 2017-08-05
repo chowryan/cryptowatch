@@ -19,7 +19,8 @@
     "react-redux": "^5.0.5",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",
-    "semantic-ui": "^2.2.11"
+    "semantic-ui": "^2.2.11",
+    "cors": "^2.8.4",
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -35,6 +36,7 @@
     "style-loader": "^0.18.2",
     "webpack": "^3.1.0",
     "webpack-cleanup-plugin": "^0.5.1",
-    "webpack-dev-server": "^2.5.1"
-  }
+    "webpack-dev-server": "^2.5.1",
+  },
 }
+

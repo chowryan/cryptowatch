@@ -2,8 +2,8 @@ const axios = require('axios');
 
 const getGDAXHistoricRates = (productId, start, end, granularity) => {
   productId = productId || 'BTC-USD';
-  start = start || '2017-08-01T17:00:00-07:00';
-  end = end || '2017-08-02T17:00:00-07:00';
+  start = start || '2017-07-21T17:00:00-07:00';
+  end = end || '2017-07-28T17:00:00-07:00';
   granularity = granularity || 86400;
   const gdxURL = `https://api.gdax.com/products/${productId}/candles?start=${start}&end=${end}&granularity=${granularity}`;
   return axios.get(gdxURL)
@@ -18,7 +18,6 @@ const getGDAXHistoricRates = (productId, start, end, granularity) => {
         volume: dataPoint[5],
       };
     });
-    console.log(filterData);
     return { data: filterData, error: null };
   })
   .catch((err) => {

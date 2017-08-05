@@ -17,12 +17,13 @@ app.get('/', (req, res) => {
   res.send();
 });
 
+app.post('/', (req, res) => {
+  res.status(201).send(req.body);
+});
+
 app.get('*', (req, res) => {
   res.status(404).send('Not found');
 });
 
-app.post('/', (req, res) => {
-  res.status(201).send(req.body);
-});
 
 module.exports = app;

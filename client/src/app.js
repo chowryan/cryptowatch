@@ -30,6 +30,6 @@ const store = createStore(reducers, enhancer);
 ReactDOM.render(
   <Provider store={store}>
     {element()}
-  </Provider>
+  </Provider>,
   document.getElementById('app'),
 );

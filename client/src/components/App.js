@@ -12,7 +12,7 @@ import {
   Menu,
   Segment,
   Visibility,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
 const FixedMenu = () => (
   <Menu fixed='top' size='large'>

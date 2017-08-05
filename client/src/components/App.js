@@ -15,7 +15,7 @@ class App extends Component {
   startSocket() {
     this.socket = io.connect();
     this.socket.on('connect', () => {
-      console.log('client side socket connected!');
+      // console.log('client side socket connected!');
       this.socket.emit('hello', 'hi');
     })
   }

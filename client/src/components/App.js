@@ -33,6 +33,8 @@ const FixedMenu = () => (
   </Menu>
 )
 
+import News from './News';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -57,6 +59,7 @@ class App extends Component {
       <div>
         <FixedMenu />
         <h1>homepage</h1>
+        <News />
       </div>
     );
   }

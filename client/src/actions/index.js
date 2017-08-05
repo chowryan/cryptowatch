@@ -5,3 +5,10 @@ export const sampleAction = (props) => {
     props,
   };
 };
+
+export const updateNews = (news) => {
+  return {
+    type: 'UPDATE_NEWS',
+    news,
+  };
+};

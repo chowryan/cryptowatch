@@ -2,7 +2,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const path = require('path');
-// const knex = require('knex')(require('../knexfile'));
 const models = require('../db/models');
 
 const app = express();
@@ -15,7 +14,7 @@ app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('app');
+  res.send();
 });
 
 app.get('*', (req, res) => {

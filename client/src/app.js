@@ -10,6 +10,7 @@ import { createLogger } from 'redux-logger';
 // End Redux
 import reducers from './reducers';
 import App from './components/App';
+
 // createLogger can be turned off for product
 const middleware = [thunk, createLogger()];
 

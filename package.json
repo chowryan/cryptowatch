@@ -8,6 +8,9 @@
   },
   "author": "fintech-week",
   "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "semantic-ui": "^2.2.11"
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.1.0"

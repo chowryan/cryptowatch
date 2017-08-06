@@ -5,11 +5,12 @@ import News from './News';
 import HomePage from './HomePage';
 import LiveDataTable from './LiveDataTable';
 import StrategyChart from './StrategyChart';
+import SummaryStats from './SummaryStats';
 
 const panes = [
   { menuItem: 'Home', render: () => <HomePage /> },
   { menuItem: 'Live Data', render: () => <Tab.Pane attached={false}><LiveDataTable /></Tab.Pane> },
-  { menuItem: 'Analytics', render: () => <Tab.Pane attached={false}><StrategyChart /></Tab.Pane> },
+  { menuItem: 'Analytics', render: () => <Tab.Pane attached={false}><StrategyChart /><SummaryStats /></Tab.Pane> },
   { menuItem: 'News', render: () => <Tab.Pane attached={false}><News /></Tab.Pane> },
 ];
 

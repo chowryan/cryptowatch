@@ -60,7 +60,7 @@ class News extends Component {
 
     searchTwitter() {
       const { updateTweets } = this.props;
-      axios.get('/searchTwitter')
+      axios.get('/retrieveCryptoMood/twitter/bitcoin')
       .then((response) => {
         console.log('hello: ', response.data.tweets);
         updateTweets(response.data.tweets);

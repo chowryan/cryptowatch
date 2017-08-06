@@ -69,7 +69,7 @@ class LiveDataTable extends Component {
   render() {
     return (
       <div>
-        <Table celled selectable color="purple">
+        <Table celled selectable color="violet">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell singleLine>Exchanges</Table.HeaderCell>

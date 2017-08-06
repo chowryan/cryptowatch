@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Grid, Table, Image, Button, Loader, Dimmer } from 'semantic-ui-react';
+import { Grid, Table, Image, Button, Loader, Dimmer, Header } from 'semantic-ui-react';
 import axios from 'axios';
 import { getRedditPosts } from '../utils/reddit';
 // import Tweet from 'react-tweet';
@@ -9,17 +9,6 @@ import './css/News.css';
 import {
   updateNews, updateTweets,
 } from '../actions';
-
-const style = {
-  table: {
-    margin: '0 0 0 2vw',
-    width: '70vw',
-    display: 'table-cell',
-  },
-  col: {
-    textAlign: 'right',
-  }
-};
 
 class News extends Component {
   constructor(props) {
@@ -34,6 +23,7 @@ class News extends Component {
 
   componentDidMount() {
     this.updateReddit('top');
+    this.searchTwitter();
   }
 
   updateReddit(sortParam) {
@@ -42,12 +32,11 @@ class News extends Component {
     const subreddit = 'cryptocurrency';
     const sortBy = sortParam;
     const count = 0;
-    const limit = 100;
+    const limit = 200;
     return getRedditPosts(subreddit, sortBy, count, limit)
     .then((res) => {
       updateNews(res.data.slice(1));
       this.setState({ loading: false });
-      this.searchTwitter();
     })
     .catch((err) => {
       console.log(err);
@@ -65,7 +54,6 @@ class News extends Component {
         console.log('hello: ', response.data.tweets);
         updateTweets(response.data.tweets);
         // sentimentScore and tweets
-        // console.log(response.data);
         console.log('successfully received all tweets');
       })
       .catch((err) => {
@@ -75,10 +63,12 @@ class News extends Component {
 
   render() {
     const { news, tweets } = this.props;
-    const divStyle= {
+
+    const divStyle = {
       overflow: 'auto',
-      height: '100vh',
+      height: '70vh',
     };
+
     return (
       <div>
         <Grid>
@@ -88,16 +78,16 @@ class News extends Component {
                 <Table.Header size="large">
                   <Table.Row>
                     <Table.HeaderCell textAlign="center" colSpan="2">
-                      <span style={{ marginRight: 20 }}>Reddit</span>
-                      <Button onClick={this.handleClick} color="green">Top</Button>
-                      <Button onClick={this.handleClick} color="red">Hot</Button>
-                      <Button onClick={this.handleClick} color="violet">New</Button>
+                      <Header as="h3">Reddit</Header>
+                      <Button onClick={this.handleClick} color="green" size="mini">Top</Button>
+                      <Button onClick={this.handleClick} color="red" size="mini">Hot</Button>
+                      <Button onClick={this.handleClick} color="blue" size="mini">New</Button>
                     </Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
                 {this.state.loading ?
-                  <Table.Row style={{ height: '300vh' }}>
+                  <Table.Row>
                     <Dimmer active inverted>
                       <Loader inverted>loading</Loader>
                     </Dimmer>
@@ -116,48 +106,32 @@ class News extends Component {
               </Table>
             </Grid.Column>
 
-
             <Grid.Column width={8}>
               <Table padded>
                 <Table.Header size="large">
                   <Table.Row>
                     <Table.HeaderCell textAlign="center" colSpan="2">
-                      <span style={{ marginRight: 20 }}>Twitter</span>
+                      <Header as="h3">Twitter</Header>
                     </Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
+                {this.state.loading ?
+                  <Table.Row>
+                    <Dimmer active inverted>
+                      <Loader inverted>loading</Loader>
+                    </Dimmer>
+                  </Table.Row> :
                   <div style={divStyle}>
                     {tweets.map((item, i) => (
                       <Table.Row key={i}>
                         <Table.Cell>
                           <Table.Row>{item.user.name}</Table.Row>
                           <Table.Row><a>{item.text}</a></Table.Row>
-                          {/*<Tweet
-                            data={{
-                                id: item.id,
-                                user: {
-                                  name: item.user.name,
-                                  screen_name: item.user.screen_name,
-                                  profile_image_url: item.user.profile_image_url,
-                                },
-                                text: item.text,
-                                created_at: item.created_at,
-                                favorite_count: item.favorite_count,
-                                retweet_count: item.retweet_count,
-                                entities: {
-                                  media: item.entities.media,
-                                  urls: item.entities.urls,
-                                  user_mentions: item.entities.user_mentions,
-                                  hashtags: item.entities.hashtags,
-                                  symbols: item.entities.symbols
-                                }}
-                            }
-                          />*/}
                         </Table.Cell>
                       </Table.Row>
                     ))}
-                  </div>
+                  </div>}
                 </Table.Body>
               </Table>
             </Grid.Column>

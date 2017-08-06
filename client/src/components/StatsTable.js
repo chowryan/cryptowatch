@@ -15,7 +15,7 @@ const StatsTable = ({ summaryStats, benchmarkStats, dataLabel, productId }) => {
         <Table.Header>
           <Table.Row textAlign="center">
             <Table.HeaderCell>Field</Table.HeaderCell>
-            <Table.HeaderCell>Benchmark</Table.HeaderCell>
+            <Table.HeaderCell>Benchmark: {productId}</Table.HeaderCell>
             <Table.HeaderCell>{dataLabel}</Table.HeaderCell>
           </Table.Row>
         </Table.Header>

@@ -25,46 +25,41 @@ class StrategyCSVChart extends Component {
   }
 
   render() {
-    const { strategyData } = this.props;
-    if (strategyData.length === 0) {
-      return <div>Loading...</div>;
-    }
-    let filteredData = [];
-    for (let i = 0; i < 100; i += 1) {
-      filteredData.push({
-        date: new Date(strategyData[i].date),
-        close: parseInt(strategyData[i].price, 10),
-        high: 0,
-        low: 0,
-        open: 0,
-        volume: 0,
-        dividend: '',
-        split: '',
-      })
+    const { strategyData, start, end } = this.props;
+    const filteredData = [];
+    for (let i = 0; i < strategyData.length; i += 1) {
+      const dataDate = new Date(strategyData[i].date).getTime();
+      if (start.getTime() < dataDate && dataDate < end.getTime()) {
+        filteredData.push({
+          date: new Date(strategyData[i].date),
+          close: parseInt(strategyData[i].price, 10),
+          high: 0,
+          low: 0,
+          open: 0,
+          volume: 0,
+          dividend: '',
+          split: '',
+        });
+      }
     }
     console.log('&&&&&&&&&&&&', filteredData);
-    // const filteredData = strategyData.map((dataPoint, i) => {
-    //   if (i < 100) {
-    //       dataPoint.date = new Date(dataPoint.date);
-    //       dataPoint.close = dataPoint.price;
-    //       dataPoint.high = 0;
-    //       dataPoint.low = 0;
-    //       dataPoint.open = 0;
-    //       dataPoint.volume = 0;
-    //       dataPoint.dividend = '';
-    //       dataPoint.split = '';
-    //     };
-    // });
+    if (filteredData.length === 0) {
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         {/* <AreaChartWithEdge data={strategyData} />  */}
-         <CandleStickChartWithMACDIndicator data={filteredData} /> 
+        <AreaChart data={filteredData} />
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
   return {
+    start: state.strategyChart.start,
+    end: state.strategyChart.end,
+    granularity: state.strategyChart.granularity,
+    dateRange: state.strategyChart.dateRange,
     strategyData: state.strategyChart.strategyData,
   };
 };

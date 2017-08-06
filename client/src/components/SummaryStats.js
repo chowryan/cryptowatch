@@ -24,9 +24,23 @@ class SummaryStats extends Component {
       strategyData: [],
       summaryStats: {},
       fileName: '',
+      benchmarkStats: {
+        timePeriod: '',
+        annualizedReturn: '',
+        annualizedVolatility: '',
+        countMonthlyReturns: '',
+        maxDrawdown: '',
+        maxDrawdownDate: '',
+        percentMonthlyPositive: '',
+        sharpe: '',
+        monthlyAverage: '',
+        worstMonth: '',
+        ytdReturn: '',
+      },
     };
 
     this.handleFiles = this.handleFiles.bind(this);
+    this.handleUpdateBenchmark = this.handleUpdateBenchmark.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +50,6 @@ class SummaryStats extends Component {
     const reader = new FileReader();
     reader.readAsText(files[0]);
     reader.onload = (e) => {
-      console.log(files[0].name);
       const fileName = files[0].name;
       CSV.parseCSV(reader.result).then((strategyData) => {
         const summaryStats = calcSummaryStats(strategyData, '1/1/00', '9/1/17');
@@ -48,12 +61,21 @@ class SummaryStats extends Component {
     };
   }
 
+  handleUpdateBenchmark() {
+    const { chartData, start, end, dateRange, productId } = this.props;
+    const benchmarkData = chartData.map(dataPoint => ({
+      date: dataPoint.date,
+      price: dataPoint.close,
+    }));
+    const benchmarkStats = calcSummaryStats(benchmarkData);
+    this.setState({ benchmarkStats });
+  }
+
   render() {
     const { chartData, start, end, dateRange, productId } = this.props;
-    const benchmarkStats = calcSummaryStats(chartData, start, end);
-    console.log(benchmarkStats);
     return (
       <div>
+<<<<<<< HEAD
         <Container>
           <Segment>
             <div className="ui action input">
@@ -73,12 +95,42 @@ class SummaryStats extends Component {
             />
           </Segment>
         </Container>
+=======
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div className="ui action input">
+                  <button className="ui button" onClick={this.handleUpdateBenchmark}>Update Benchmark</button>
+                </div>
+              </td>
+              <td>
+                <div className="ui action input">
+                  <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
+                    <div>
+                      <input type="text" placeholder="Upload CSV File" disabled />
+                      <input type="file" />
+                    </div>
+                  </ReactFileReader>
+                  <div className="ui icon button">
+                    <i className="attach icon"></i>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <StatsTable
+          summaryStats={this.state.summaryStats}
+          dataLabel={this.state.fileName}
+          productId={productId}
+          benchmarkStats={this.state.benchmarkStats}
+        />
+>>>>>>> summary stats: calc & display benchmark
       </div>
     );
   }
 }
-
-// export default SummaryStats;
 
 const mapStateToProps = state => ({
   chartData: state.strategyChart.chartData,

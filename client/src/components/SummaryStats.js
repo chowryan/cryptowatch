@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+
 import ReactFileReader from 'react-file-reader';
-import DataRow from './DataRow';
 import StatsTable from './StatsTable';
 
 import CSV from '../utils/csv';
@@ -21,9 +20,23 @@ class SummaryStats extends Component {
       strategyData: [],
       summaryStats: {},
       fileName: '',
+      benchmarkStats: {
+        timePeriod: '',
+        annualizedReturn: '',
+        annualizedVolatility: '',
+        countMonthlyReturns: '',
+        maxDrawdown: '',
+        maxDrawdownDate: '',
+        percentMonthlyPositive: '',
+        sharpe: '',
+        monthlyAverage: '',
+        worstMonth: '',
+        ytdReturn: '',
+      },
     };
 
     this.handleFiles = this.handleFiles.bind(this);
+    this.handleUpdateBenchmark = this.handleUpdateBenchmark.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +46,6 @@ class SummaryStats extends Component {
     const reader = new FileReader();
     reader.readAsText(files[0]);
     reader.onload = (e) => {
-      console.log(files[0].name);
       const fileName = files[0].name;
       CSV.parseCSV(reader.result).then((strategyData) => {
         const summaryStats = calcSummaryStats(strategyData, '1/1/00', '9/1/17');
@@ -45,22 +57,51 @@ class SummaryStats extends Component {
     };
   }
 
+  handleUpdateBenchmark() {
+    const { chartData, start, end, dateRange, productId } = this.props;
+    const benchmarkData = chartData.map(dataPoint => ({
+      date: dataPoint.date,
+      price: dataPoint.close,
+    }));
+    const benchmarkStats = calcSummaryStats(benchmarkData);
+    this.setState({ benchmarkStats });
+  }
+
   render() {
+    const { chartData, start, end, dateRange, productId } = this.props;
     return (
       <div>
         <Container>
           <Segment>
             <div className="ui action input">
-              <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                <Input type="text" placeholder="Upload CSV File" disabled />
-                <Input type="file" />
-              </ReactFileReader>
-              <Button icon>
-                <Icon name="attach"/>
-              </Button>
+              <table>
+                <tr>
+                  <td>
+                    <Button onClick={this.handleUpdateBenchmark} >
+                      Update Benchmark
+                    </Button>
+                  </td>
+                  <td>
+                    <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
+                      <Input type="text" placeholder="Upload CSV File" disabled />
+                      <Input type="file" />
+                    </ReactFileReader>
+                  </td>
+                  <td>
+                    <Button icon>
+                      <Icon name="attach" />
+                    </Button>
+                  </td>
+                </tr>
+              </table>
             </div>
             <Divider hidden />
-            <StatsTable summaryStats={this.state.summaryStats} dataLabel={this.state.fileName} />
+            <StatsTable
+              summaryStats={this.state.summaryStats}
+              dataLabel={this.state.fileName}
+              productId={productId}
+              benchmarkStats={this.state.benchmarkStats}
+            />
           </Segment>
         </Container>
       </div>
@@ -68,17 +109,13 @@ class SummaryStats extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    strategyData: state.strategyChart.strategyData,
-  };
-};
+const mapStateToProps = state => ({
+  chartData: state.strategyChart.chartData,
+  start: state.strategyChart.start,
+  end: state.strategyChart.end,
+  granularity: state.strategyChart.granularity,
+  dateRange: state.strategyChart.dateRange,
+  productId: state.strategyChart.productId,
+});
 
-
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    updateStrategyData,
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, matchDispatchToProps)(SummaryStats);
+export default connect(mapStateToProps)(SummaryStats);

@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import MenuTab from './MenuTab';
 import News from './News';
 import axios from 'axios';
+import Tweet from 'react-tweet'
 import {
   Button,
   Container,
@@ -41,6 +42,7 @@ class App extends Component {
     super(props);
 
     this.startSocket = this.startSocket.bind(this);
+    this.searchTwitter = this.searchTwitter.bind(this);
   }
 
   componentDidMount() {

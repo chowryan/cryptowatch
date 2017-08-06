@@ -28,6 +28,28 @@ app.get('/retrieveCryptoMood/:source/:keyword', (req, res) => {
   } else { res.send({ error: 'invalid source' }); }
 });
 
+app.get('/retrieveCryptoMoods/', (req, res) => {
+  const searchTextArray = req.params.list;
+  let returnArray = [];
+  console.log(searchTextArray);
+  searchTextArray.forEach((searchText) => {
+    getAll(searchText, (emotions) => {
+      const { joy, sadness, anger, disgust, fear } = emotions;
+      returnArray.push([searchText, null, (joy * 4) - sadness - anger - disgust - fear]);
+    });
+  });
+  returnArray = returnArray.sort((a, b) => {
+    if (a[2] > b[2]) {
+      return 1;
+    } else if (a[2] < b[2]) {
+      return -1;
+    }
+  });
+
+  return returnArray;
+});
+
+
 app.get('/fetchTweets', (req, res) => {
   return fetchTweets()
   .then((data) => {

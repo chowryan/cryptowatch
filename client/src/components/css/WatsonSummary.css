@@ -1,0 +1,10 @@
+.watson-bg {
+  width: 99%;
+  /*height: auto;*/
+  height: 99%;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding: 2px;
+  display: inline-block;
+
+}

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Grid, Segment, Card } from 'semantic-ui-react';
 import LiveDataTable from './LiveDataTable';
 import StrategyChart from './StrategyChart';
+import HomePageTweets from './HomePageTweets';
+import WatsonSummary from './WatsonSummary';
 
 const divStyle= {
-  height: '40vh'
+  height: '40vh',
 };
-
 class HomePage extends Component {
   render() {
     return (
@@ -35,7 +36,6 @@ class HomePage extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-
       </div>
     );
   }

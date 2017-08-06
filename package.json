@@ -14,7 +14,7 @@
     "axios": "^0.16.2",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
-    "chart": "^0.1.2",
+    "chart.js": "^2.6.0",
     "compression-webpack-plugin": "^1.0.0",
     "cors": "^2.8.4",
     "csv": "^1.1.1",

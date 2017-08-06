@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Card } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
 import LiveDataTable from './LiveDataTable';
-import StrategyChart from './StrategyChart';
 import HomePageTweets from './HomePageTweets';
+import HomePageStrategyChart from './HomePageStrategyChart';
 import WatsonSummary from './WatsonSummary';
+import Calculator from './Calculator';
 
-const divStyle= {
-  height: '40vh',
+const divStyle = {
+  height: '45vh',
 };
 
 class HomePage extends Component {
@@ -16,24 +17,24 @@ class HomePage extends Component {
         <Grid stackable padded>
           <Grid.Row stretched style={divStyle}>
             <Grid.Column width={6}>
-              <Segment>*StrategyChart*</Segment>
+              <Segment><HomePageStrategyChart /></Segment>
             </Grid.Column>
             <Grid.Column width={6}>
               <Segment>hello</Segment>
             </Grid.Column>
-            <Grid.Column width={4}>
-              <Segment>*Reddit*</Segment>
+            <Grid.Column width={4} height={3}>
+              <Segment><HomePageTweets /></Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row stretched style={divStyle}>
-            <Grid.Column width={6}>
-              <Segment><LiveDataTable /></Segment>
+            <Grid.Column width={6} >
+              <LiveDataTable />
             </Grid.Column>
             <Grid.Column width={6}>
               <Segment><WatsonSummary /></Segment>
             </Grid.Column>
             <Grid.Column width={4}>
-              <Segment>*Twitter*</Segment>
+              <Segment> <Calculator /></Segment>
             </Grid.Column>
           </Grid.Row>
         </Grid>

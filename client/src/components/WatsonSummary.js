@@ -59,7 +59,7 @@ class WatsonSummary extends Component {
       });
 
       ctx = document.getElementById('watson-chart');
-      ctx.height = '10vh';
+      ctx.height = 200;
 
       if (barChart !== undefined) barChart.destroy();
 

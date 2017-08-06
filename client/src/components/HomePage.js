@@ -8,10 +8,10 @@ import WatsonSummary from './WatsonSummary';
 const divStyle= {
   height: '40vh',
 };
+
 class HomePage extends Component {
   render() {
     return (
-<<<<<<< HEAD
       <div>
         <Grid stackable padded>
           <Grid.Row stretched style={divStyle}>
@@ -30,30 +30,13 @@ class HomePage extends Component {
               <Segment><LiveDataTable /></Segment>
             </Grid.Column>
             <Grid.Column width={6}>
-              <Segment>*Watson*</Segment>
+              <Segment><WatsonSummary /></Segment>
             </Grid.Column>
             <Grid.Column width={4}>
               <Segment>*Twitter*</Segment>
             </Grid.Column>
           </Grid.Row>
         </Grid>
-=======
-      <div style={styles.container}>
-        <div style={styles.left}>
-          <div style={styles.leftHigh}>
-            <Card fluid style={styles.card}> Something else</Card>
-            <Card fluid style={styles.card}> Graph </Card>
-          </div>
-          <div style={styles.leftLow}>
-            <div style={styles.card}><LiveDataTable /></div>
-            <Card fluid style={styles.column}><WatsonSummary /></Card>
-          </div>
-        </div>
-        <div style={styles.right}>
-          <Card fluid style={styles.column}> <HomePageTweets /> </Card>
-          <Card fluid style={styles.column}></Card>
-        </div>
->>>>>>> add sample data
       </div>
     );
   }

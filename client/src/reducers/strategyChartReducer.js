@@ -1,8 +1,8 @@
 const initialState = {
   chartData: [],
   strategyData: [],
-  start: {},
-  end: {},
+  start: new Date(),
+  end: new Date((new Date()).setMonth((new Date()).getMonth() - 6)),
   granularity: 0,
   dateRange: '6 Months',
   productId: 'BTC-USD',

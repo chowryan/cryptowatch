@@ -5,6 +5,7 @@ import LineAndScatterChart from './LineAndScatterChart';
 import AreaChartWithEdge from './AreaChartWithEdge';
 import AreaChart from './AreaChart';
 import CandleStickChartWithMACDIndicator from './CandleStickChartWithMACDIndicator';
+import { Container, Segment } from 'semantic-ui-react';
 
 
 const style = {
@@ -46,11 +47,15 @@ class StrategyCSVChart extends Component {
     }
     return (
       <div>
-         {/* <AreaChartWithEdge data={filteredData} /> */}
-         {/* <AreaChart data={filteredData} />  */}
-        {/* <Button primary onClick={this.}>UPDATE</Button> */}
-        <LineAndScatterChart data={filteredData} />
-        {/* <CandleStickChartWithMACDIndicator type={'hybrid'} data={filteredData} /> */}
+        <Container>
+          <Segment container padded>
+            {/* <AreaChartWithEdge data={filteredData} /> */}
+            {/* <AreaChart data={filteredData} />  */}
+            {/* <Button primary onClick={this.}>UPDATE</Button> */}
+            <LineAndScatterChart data={filteredData} />
+            {/* <CandleStickChartWithMACDIndicator type={'hybrid'} data={filteredData} /> */}
+          </Segment>
+        </Container>
       </div>
     );
   }

@@ -55,7 +55,6 @@ class StrategyChart extends Component {
   }
 
   getData() {
-        console.log('GET DATAADATAADATAADATAADATAA')
     const { updateChart, productId } = this.props;
     let start;
     let end;
@@ -99,11 +98,11 @@ class StrategyChart extends Component {
     } else if (value === '6 Month') {
       startDate.setMonth(startDate.getMonth() - 6);
     } else if (value === 'YTD') {
-      startDate.setDate(startDate.getDate() - 1);
+      startDate.setMonth(1);
     } else if (value === '1 Year') {
-      startDate.setDate(startDate.getDate() - 365);
+      startDate.setYear(startDate.getFullYear() - 1);
     } else if (value === 'Max') {
-      startDate.setDate(startDate.getDate() - (365 * 2));
+      startDate.setYear(startDate.getFullYear() - 2);
     }
     updateStartDate(startDate);
     const granularity = (endDate - startDate) / (200 * 1000);
@@ -126,7 +125,7 @@ class StrategyChart extends Component {
     } = this.props;
     const end = new Date();
     const start = new Date();
-    start.setDate(start.getDate() - 1);
+    start.setMonth(start.getMonth() - 6);
     const granularity = (end - start) / (200 * 1000);
     updateEndDate(end);
     updateStartDate(start);

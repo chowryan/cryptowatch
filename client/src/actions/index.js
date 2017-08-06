@@ -61,3 +61,10 @@ export const updateTweets = (tweets) => {
     tweets,
   };
 };
+
+export const updateStrategyData = (strategyData) => {
+  return {
+    type: 'UPDATE_STRATEGY_DATA',
+    strategyData,
+  };
+};

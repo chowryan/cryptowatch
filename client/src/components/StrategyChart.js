@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import { Dropdown, Container, Input, Table, Segment, Button } from 'semantic-ui-react';
-import { TypeChooser } from 'react-stockcharts/lib/helper';
 
 import { getGDAXHistoricRates } from '../utils/gdaxHelpers';
 import CandleStickChartWithMACDIndicator from './CandleStickChartWithMACDIndicator';
+import AreaChartWithEdge from './AreaChartWithEdge';
+import AreaChart from './AreaChart';
 
 import {
   updateChart,
@@ -17,13 +17,24 @@ import {
   updateProductId,
 } from '../actions';
 
+const style = {
+  table: {
+    margin: '0 0 0 2vw',
+    width: '70vw',
+    display: 'table-cell',
+  },
+  col: {
+    textAlign: 'right',
+  },
+};
+
 class StrategyChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
       start: null,
       end: null,
-    }
+    };
     this.getData = this.getData.bind(this);
     this.handleDateRangeChange = this.handleDateRangeChange.bind(this);
     this.handleProductIdChange = this.handleProductIdChange.bind(this);
@@ -87,11 +98,11 @@ class StrategyChart extends Component {
     } else if (value === '6 Month') {
       startDate.setMonth(startDate.getMonth() - 6);
     } else if (value === 'YTD') {
-      startDate.setDate(startDate.getDate() - 1);
+      startDate.setMonth(1);
     } else if (value === '1 Year') {
-      startDate.setDate(startDate.getDate() - 365);
+      startDate.setYear(startDate.getFullYear() - 1);
     } else if (value === 'Max') {
-      startDate.setDate(startDate.getDate() - (365 * 2));
+      startDate.setYear(startDate.getFullYear() - 2);
     }
     updateStartDate(startDate);
     const granularity = (endDate - startDate) / (200 * 1000);
@@ -114,12 +125,12 @@ class StrategyChart extends Component {
     } = this.props;
     const end = new Date();
     const start = new Date();
-    start.setDate(start.getDate() - 1);
+    start.setMonth(start.getMonth() - 6);
     const granularity = (end - start) / (200 * 1000);
     updateEndDate(end);
     updateStartDate(start);
     updateGranularity(granularity);
-    
+
     return getGDAXHistoricRates(productId, start, end, granularity)
     .then((res) => {
       updateChart(res.data);
@@ -127,16 +138,18 @@ class StrategyChart extends Component {
     .catch((err) => {
       console.log('componentDidMount error: ', err);
     });
+    // this.getData();
   }
 
   render() {
-    const { chartData, dateRange, productId } = this.props;
-    chartData.forEach((dataPoint) => {
-      dataPoint.date = new Date(dataPoint.date * 1000);
-    });
+    const { chartData, dateRange, productId, strategyData } = this.props;
     if (chartData.length === 0) {
       return <div>Loading...</div>;
     }
+    chartData.forEach((dataPoint) => {
+      dataPoint.date = new Date(dataPoint.date * 1000);
+    });
+
     const productIdOptions = [
       { value: 'BTC-USD', text: 'Bitcoin' },
       { value: 'ETH-USD', text: 'Ethereum' },
@@ -146,7 +159,7 @@ class StrategyChart extends Component {
       { value: '1 Day', text: '1 Day' },
       { value: '1 Week', text: '1 Week' },
       { value: '1 Month', text: '1 Month' },
-      { value: '6 Month', text: '6 Month' },
+      { value: '6 Months', text: '6 Months' },
       { value: 'YTD', text: 'YTD' },
       { value: '1 Year', text: '1 Year' },
       { value: 'Max', text: 'Max' },
@@ -168,7 +181,7 @@ class StrategyChart extends Component {
                 </Table.Cell>
                 <Table.Cell>
                   <Dropdown
-                    defaultValue="1 Day"
+                    defaultValue="6 Months"
                     selection
                     options={dateRangeOptions}
                     onChange={this.handleDateRangeChange}
@@ -188,6 +201,8 @@ class StrategyChart extends Component {
           </Table>
           <Segment container padded>
             <CandleStickChartWithMACDIndicator data={chartData} />
+            {/* <AreaChartWithEdge data={strategyData} />  */}
+            {/* <AreaChart data={filteredStrategyData} />  */}
           </Segment>
         </Container>
       </div>
@@ -202,6 +217,7 @@ const mapStateToProps = (state) => {
     granularity: state.strategyChart.granularity,
     dateRange: state.strategyChart.dateRange,
     productId: state.strategyChart.productId,
+    strategyData: state.strategyChart.strategyData,
   };
 };
 

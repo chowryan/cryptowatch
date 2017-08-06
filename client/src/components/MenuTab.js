@@ -4,13 +4,12 @@ import { Tab } from 'semantic-ui-react';
 import News from './News';
 import HomePage from './HomePage';
 import LiveDataTable from './LiveDataTable';
-import StrategyChart from './StrategyChart';
-import SummaryStats from './SummaryStats';
+import Analytics from './Analytics';
 
 const panes = [
   { menuItem: { key: 'eye', icon: 'eye', content: 'crypto' }, render: () => <HomePage /> },
   { menuItem: 'Live Data', render: () => <Tab.Pane attached={false}><LiveDataTable /></Tab.Pane> },
-  { menuItem: 'Analytics', render: () => <Tab.Pane attached={false}><StrategyChart /><br /><SummaryStats /></Tab.Pane> },
+  { menuItem: 'Analytics', render: () => <Tab.Pane attached={false}><Analytics /></Tab.Pane> },
   { menuItem: 'News', render: () => <Tab.Pane attached={false}><News /></Tab.Pane> },
 ];
 

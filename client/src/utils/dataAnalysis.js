@@ -1,3 +1,4 @@
+const numeral = require('numeral');
 
 const convertToDecimal = (array) => array.map(obj => ({ date: obj.date, price: obj.price / 100 }));
 
@@ -44,9 +45,10 @@ const getIntradayReturns = (array) => {
   const result = [];
   for (let i = 1; i < array.length; i += 1) {
     const date = array[i].date;
-    const dayReturn = (array[i].price / array[i - 1].price) - 1;
+    const dayReturn = (numeral(array[i].price).value() / numeral(array[i - 1].price).value()) - 1;
     result.push({ date, dayReturn });
   }
+  // console.log('returns: ', JSON.stringify(result));
   return result;
 };
 
@@ -92,10 +94,13 @@ const getMonthlyReturns = (values) => {
     date1_ms = new Date(values[index1].date).getTime();
   }
 
-  const average = results.reduce((a, b) => a + b, 0) / results.length;
+  const average = results.reduce((a, b) => numeral(a).value() + numeral(b).value(), 0) / results.length;
   console.log('Average monthly return: ', average);
 
-  return results;
+  return {
+    monthlyAverage: average,
+    monthlyReturns: results,
+  };
 };
 
 Date.daysBetween = (date1, date2) => {   //Get 1 day in milliseconds   
@@ -152,7 +157,7 @@ const calcSummaryStats = (priceData, startDate, endDate) => {
 
   const stdDev = standardDeviation(dailyReturns);
   const ytdReturn = getYtdReturn(asset);
-  const monthlyReturns = getMonthlyReturns(asset);
+  const { monthlyAverage, monthlyReturns } = getMonthlyReturns(asset);
 
   console.log();
   console.log('===========');
@@ -184,11 +189,10 @@ const calcSummaryStats = (priceData, startDate, endDate) => {
     percentMonthlyPositive,
     worstMonth,
     stdDev,
+    monthlyAverage,
     annualizedVolatility: stdDev * Math.sqrt(riskPremiums.length / (days / 365)),
     ytdReturn,
     countMonthlyReturns: monthlyReturns.length,
-    percentMonthlyPositive,
-    worstMonth,
     maxDrawdown: Math.round((trough / peak - 1) * 1000) / 1000,
     maxDrawdownDate: `${Date.format(peakDate)} - ${Date.format(troughDate)}`,
   };

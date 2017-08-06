@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import { getRedditPosts } from '../utils/reddit';
 import { Grid, Table, Image } from 'semantic-ui-react';
-import { Table, Image, Dropdown, Button } from 'semantic-ui-react';
 
 import './css/News.css'
 import {

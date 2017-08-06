@@ -1,7 +1,7 @@
 module.exports = {
   watson: {
-    username: 'WATSON_USERNAME_HERE',
-    password: 'WATSON_PASSWORD_HERE',
+    username: '71fb402f-f0ca-4aa9-a21c-b73036b9fc36',
+    password: '02QbE4fEuz8P',
   },
   twitter: {
     consumer_key: 'TWITTER_CONSUMER_KEY',

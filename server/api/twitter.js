@@ -1,26 +1,99 @@
-const keys = require('../../config/apiKeys')
+const Twitter = require('twitter-node-client').Twitter;
+const Keys = require('../../config/apiKeys').twitter;
+const Promise = require('bluebird');
+const watson = require('../watsonHelpers').analyzeSentiment;
 
-exports.tweetSearch = function(query, res) {
-  const error = function(err, res, body) {
-    console.log('ERROR in Twitter Fetch [%s]', err);
-  };
-  const success = function (data) {
-    console.log('Fetch from Twitter Successful');
-    var result = data;
-    res.send('hello from twitter search')
-  };
+const keys = {
+  consumerKey: Keys.consumer_key,
+  consumerSecret: Keys.consumer_secret,
+  accessToken: Keys.access_token_key,
+  accessTokenSecret: Keys.access_token_secret,
+  callBackUrl: 'None',
+};
 
-  const Twitter = require('twitter-node-client').Twitter;
+const twitter = new Twitter(keys);
 
-  const config = {
-    "consumerKey": keys.Twitter.consumerKey,
-    "consumerSecret": keys.Twitter.consumerSecret,
-    "accessToken": keys.Twitter.accessToken,
-    "accessTokenSecret": keys.Twitter.accessSecret,
-    "callBackUrl": 'None'
+const getAll = (keyword, cb) => {
+
+  let allTweets = [];
+
+  const getTweets = (keyword, cb) => {
+    twitter.getSearch({'q': keyword, 'count': 1000}, error, success);
   }
 
-  const twitter = new Twitter(config);
+  const error = (err, response, body) => {
+    console.error('error: ', err);
+  }
 
-  twitter.getSearch({'q':'#haiku','count': 10}, error, success);
+  const success = (data) => {
+
+    let tweetString = '';
+    let twitterObj = JSON.parse(data);
+
+    // console.log('twitterObj is: ', twitterObj.user);
+
+    if (twitterObj.statuses.length > 0) {
+      twitterObj.statuses.map((item, index) => {
+        let tweet = {
+          id: item.id,
+          user: {
+            name: item.user.name,
+            screen_name: item.user.screen_name,
+            profile_image_url: item.user.profile_image_url,
+          },
+          text: item.text,
+          created_at: item.created_at,
+          favorite_count: item.favorite_count,
+          retweet_count: item.retweet_count,
+          entities: {
+            media: item.entities.media,
+            urls: item.entities.url,
+            user_mentions: item.entities.user_mentions,
+            hashtags: item.entities.hashtags,
+            symbols: item.entities.symbols,
+          }
+        }
+        allTweets.push(tweet);
+        tweetString += item.text;
+        // console.log(`${index}:`,item.text);
+      });
+    }
+
+    watson(tweetString)
+    .then(response => {
+      let sentimentData = JSON.parse(response)
+      let emotions = {
+        joy: 0,
+        sadness: 0,
+        fear: 0,
+        disgust: 0,
+        anger: 0,
+      }
+      let size = 0;
+
+      sentimentData.keywords.map((item) => {
+        if (item.emotion) {
+          emotions.joy += item.emotion.joy,
+          emotions.sadness += item.emotion.sadness,
+          emotions.fear += item.emotion.fear,
+          emotions.disgust += item.emotion.disgust,
+          emotions.anger += item.emotion.anger
+          size+=1;
+        }
+      });
+
+      for (let key in emotions) {
+        emotions[key] = emotions[key] / size;
+      }
+      cb(emotions, allTweets);
+    })
+    .catch(err => {
+      console.error('err: ', err);
+    });
+  }
+
+  const word = `#${keyword}`
+  getTweets(word, cb);
 }
+
+module.exports = getAll;

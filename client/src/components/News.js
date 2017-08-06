@@ -4,20 +4,37 @@ import { bindActionCreators } from 'redux';
 
 import { getRedditPosts } from '../utils/reddit';
 import { Grid, Table, Image } from 'semantic-ui-react';
+
 import './css/News.css'
 import {
   updateNews,
 } from '../actions';
 
+const style = {
+  table: {
+    margin: '0 0 0 2vw',
+    width: '70vw',
+    display: 'table-cell',
+  },
+  col: {
+    textAlign: 'right',
+  }
+};
 
 class News extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortBy: 'hot',
+      subreddit: 'cryptocurrency',
+    };
+  }
+
   componentDidMount() {
     const { updateNews } = this.props;
-    const subreddit = 'cryptocurrency';
-    const sortBy = 'hot';
     const count = 0;
     const limit = 100;
-    return getRedditPosts(subreddit, sortBy, count, limit)
+    return getRedditPosts(this.state.subreddit, this.state.sortBy, count, limit)
     .then((res) => {
       updateNews(res.data.slice(1));
     })
@@ -70,7 +87,6 @@ class News extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        
       </div>
     );
   }

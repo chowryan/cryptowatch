@@ -4,11 +4,12 @@ import { Tab } from 'semantic-ui-react';
 import News from './News';
 import HomePage from './HomePage';
 import LiveDataTable from './LiveDataTable';
+import StrategyChart from './StrategyChart';
 
 const panes = [
   { menuItem: 'Home', render: () => <HomePage /> },
   { menuItem: 'Live Data', render: () => <Tab.Pane attached={false}><LiveDataTable /></Tab.Pane> },
-  { menuItem: 'Analytics', render: () => <Tab.Pane attached={false}>*Analytics here*</Tab.Pane> },
+  { menuItem: 'Analytics', render: () => <Tab.Pane attached={false}><StrategyChart /></Tab.Pane> },
   { menuItem: 'News', render: () => <Tab.Pane attached={false}><News /></Tab.Pane> },
 ];
 

@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import FixedMenu from './Menu'
 import News from './News';
 import StrategyChart from './StrategyChart';
+import LiveDataTable from './LiveDataTable';
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class App extends Component {
         <News />
         <h1>homepage</h1>
         <StrategyChart />
+        <LiveDataTable />
       </div>
     );
   }

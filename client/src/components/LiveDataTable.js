@@ -71,9 +71,9 @@ class LiveDataTable extends Component {
     return (
       <div>
         <Container>
-          <Table celled selectable color='purple'>
+          <Table padded celled selectable>
             <Table.Header>
-              <Table.Row>
+              <Table.Row textAlign="center">
                 <Table.HeaderCell singleLine>Exchanges</Table.HeaderCell>
                 <Table.HeaderCell>Bitcoin</Table.HeaderCell>
                 <Table.HeaderCell>Ethereum</Table.HeaderCell>

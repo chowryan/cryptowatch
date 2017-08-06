@@ -5,7 +5,7 @@ import StatsTable from './StatsTable';
 
 import CSV from '../utils/csv';
 import { calcSummaryStats } from '../utils/dataAnalysis';
-
+import { Icon, Container, Input, Divider, Segment, Button } from 'semantic-ui-react';
 import './css/SummaryStats.css';
 
 class SummaryStats extends Component {
@@ -39,18 +39,21 @@ class SummaryStats extends Component {
   render() {
     return (
       <div>
-        <div className="ui action input">
-          <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-            <div>
-              <input type="text" placeholder="Upload CSV File" disabled />
-              <input type="file" />
-            </div>  
-          </ReactFileReader>
-          <div className="ui icon button">
-            <i className="attach icon"></i>
-          </div>
-        </div>
-        <StatsTable summaryStats={this.state.summaryStats} dataLabel={this.state.fileName} />
+        <Container>
+          <Segment>
+            <div className="ui action input">
+              <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
+                <Input type="text" placeholder="Upload CSV File" disabled />
+                <Input type="file" />
+              </ReactFileReader>
+              <Button icon>
+                <Icon name="attach"/>
+              </Button>
+            </div>
+            <Divider hidden />
+            <StatsTable summaryStats={this.state.summaryStats} dataLabel={this.state.fileName} />
+          </Segment>
+        </Container>
       </div>
     );
   }

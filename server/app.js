@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const path = require('path');
-const getTweets = require('./api/twitter');
+const { getAll, fetchTweets } = require('./api/twitter');
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, '../public/dist')));
 app.get('/retrieveCryptoMood/:source/:keyword', (req, res) => {
   if (req.params.source === 'twitter') {
     const searchText = req.params.keyword;
-    getTweets(searchText, (emotions, allTweets) => {
+    getAll(searchText, (emotions, allTweets) => {
       const { joy, sadness, anger, disgust, fear } = emotions;
       const searchResult = {
         keyword: searchText,
@@ -26,6 +26,14 @@ app.get('/retrieveCryptoMood/:source/:keyword', (req, res) => {
   } else if (req.params.source === 'reddit') {
     res.send({ error: 'currently unavailble' });
   } else { res.send({ error: 'invalid source' }); }
+});
+
+app.get('/fetchTweets', (req, res) => {
+  return fetchTweets()
+  .then((data) => {
+    res.send(data);
+  })
+  .catch(err => console.log(err));
 });
 
 app.post('/', (req, res) => {

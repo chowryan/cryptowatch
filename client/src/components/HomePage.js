@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 import LiveDataTable from './LiveDataTable';
+import HomePageTweets from './HomePageTweets';
 
 const styles = {
   container: {
@@ -45,16 +46,17 @@ class HomePage extends Component {
       <div style={styles.container}>
         <div style={styles.left}>
           <div style={styles.leftHigh}>
-            <Card fluid style={styles.card}>Something else </Card>
+            <Card fluid style={styles.card}>
+            </Card>
             <Card fluid style={styles.card}> Graph </Card>
           </div>
           <div style={styles.leftLow}>
             <div style={styles.card}><LiveDataTable /></div>
-            <Card fluid style={styles.card}>Something else </Card>
+            <Card fluid style={styles.column}> Graph </Card>
           </div>
         </div>
         <div style={styles.right}>
-          <Card fluid style={styles.column}> Twitter </Card>
+          <Card fluid style={styles.column}> <HomePageTweets /> </Card>
           <Card fluid style={styles.column}> Watson </Card>
         </div>
       </div>

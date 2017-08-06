@@ -81,7 +81,7 @@ const getAll = (keyword, cb) => {
   };
 
   const getTweets = (kw) => {
-    twitter.getSearch({ q: kw, count: 1000 }, error, success);
+    twitter.getSearch({ q: kw, count: 200 }, error, success);
   };
   const word = `#${keyword}`;
   getTweets(word, cb);

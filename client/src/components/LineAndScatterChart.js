@@ -43,7 +43,7 @@ class LineAndScatterChart extends React.Component {
 			xAccessor(data[data.length - 20])
 		];
 		return (
-			<ChartCanvas ratio={ratio} width={width} height={600}
+			<ChartCanvas ratio={ratio} width={width} height={450}
 					margin={{ left: 70, right: 70, top: 20, bottom: 30 }}
 					type={type}
 					pointsPerPxThreshold={1}

@@ -78,6 +78,8 @@ class SummaryStats extends Component {
   }
 }
 
+// export default SummaryStats;
+
 const mapStateToProps = state => ({
   chartData: state.strategyChart.chartData,
   start: state.strategyChart.start,

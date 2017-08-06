@@ -12,15 +12,22 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public/dist')));
-app.get('/test', (req, res) => {
-  getTweets(() => {
-    res.send();
-  });
-});
+app.get('/searchTwitter', (req, res) => {
+  // const searchText = req.body.text;
+  const searchText = 'bitcoin';
+  getTweets(searchText, (emotions, allTweets) => {
+    // console.log('emotions: ', emotions);
+    // console.log('allTweets: ', allTweets);
+    let searchResult = {
+      sentimentScore: emotions.joy * 4 - emotions.sadness - emotions.anger - emotions.disgust - emotions.fear,
+      tweets: allTweets,
+    }
+    res.send(searchResult);
+  })
+ });
 
 app.get('/watson', (req, res) => {
   const text = 'bitcoin good, ethereum bad';
-
   analyzeSentiment(text)
   .then((data) => {
     res.send(data);

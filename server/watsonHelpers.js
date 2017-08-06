@@ -13,6 +13,10 @@ const analyzeSentiment = text => new Promise((resolve, reject) => {
   const params = {
     html: text,
     features: {
+      // entities: {
+      //   sentiment: true,
+      //   limit: 50,
+      // }
       keywords: { sentiment: true, emotion: true },
       emotion: {
         targets: ['bitcoin', 'ethereum', 'litecoin', 'cryptocurrency', 'crypto', 'market'],

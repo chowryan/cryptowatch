@@ -45,13 +45,6 @@ class App extends Component {
 
   componentDidMount() {
     this.startSocket();
-    axios.get('/test')
-    .then((response) => {
-      console.log('successfully received all tweets');
-    })
-    .catch((err) => {
-      console.error('failed to get tweets!', err);
-    })
   }
 
   startSocket() {
@@ -59,6 +52,18 @@ class App extends Component {
     this.socket.on('connect', () => {
       // console.log('client side socket connected!');
       this.socket.emit('hello', 'hi');
+    });
+  }
+
+  searchTwitter() {
+    axios.get('/searchTwitter')
+    .then((response) => {
+      // sentimentScore and tweets
+      // console.log(response.data);
+      console.log('successfully received all tweets');
+    })
+    .catch((err) => {
+      console.error('failed to get tweets!', err);
     });
   }
 

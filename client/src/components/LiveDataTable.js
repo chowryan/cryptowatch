@@ -68,8 +68,8 @@ class LiveDataTable extends Component {
 
   render() {
     return (
-      <div style={{ width: 500, height: 400 }}>
-        <Table celled padded>
+      <div>
+        <Table celled selectable color="purple">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell singleLine>Exchanges</Table.HeaderCell>

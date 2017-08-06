@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-import MenuTab from './MenuTab'
+import MenuTab from './MenuTab';
 
 class App extends Component {
   constructor(props) {

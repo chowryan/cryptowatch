@@ -77,7 +77,11 @@ class News extends Component {
     const { news, tweets } = this.props;
     const divStyle= {
       overflow: 'auto',
+<<<<<<< HEAD
       height: '100vh',
+=======
+      height: '80vh'
+>>>>>>> news feed height fix
     };
     return (
       <div>

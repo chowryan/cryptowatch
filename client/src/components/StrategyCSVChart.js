@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
-
+import LineAndScatterChart from './LineAndScatterChart';
 import AreaChartWithEdge from './AreaChartWithEdge';
 import AreaChart from './AreaChart';
 import CandleStickChartWithMACDIndicator from './CandleStickChartWithMACDIndicator';
@@ -33,23 +32,25 @@ class StrategyCSVChart extends Component {
         filteredData.push({
           date: new Date(strategyData[i].date),
           close: parseInt(strategyData[i].price, 10),
-          high: 0,
-          low: 0,
-          open: 0,
-          volume: 0,
+          high: parseInt(strategyData[i].price, 10) + 10000,
+          low: parseInt(strategyData[i].price, 10) - 10000,
+          open: parseInt(strategyData[i].price, 10),
+          volume: 10000000000000,
           dividend: '',
           split: '',
         });
       }
     }
-    console.log('&&&&&&&&&&&&', filteredData);
     if (filteredData.length === 0) {
       return <div>Loading...</div>;
     }
     return (
       <div>
-        {/* <AreaChartWithEdge data={strategyData} />  */}
-        <AreaChart data={filteredData} />
+         {/* <AreaChartWithEdge data={filteredData} /> */}
+         {/* <AreaChart data={filteredData} />  */}
+        {/* <Button primary onClick={this.}>UPDATE</Button> */}
+        <LineAndScatterChart data={filteredData} />
+        {/* <CandleStickChartWithMACDIndicator type={'hybrid'} data={filteredData} /> */}
       </div>
     );
   }

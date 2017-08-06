@@ -4,7 +4,7 @@ const initialState = {
   start: {},
   end: {},
   granularity: 0,
-  dateRange: '1 Day',
+  dateRange: '6 Months',
   productId: 'BTC-USD',
 };
 

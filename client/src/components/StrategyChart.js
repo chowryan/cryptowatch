@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import { Dropdown, Container, Input, Table, Segment, Button } from 'semantic-ui-react';
-import { TypeChooser } from 'react-stockcharts/lib/helper';
 
 import { getGDAXHistoricRates } from '../utils/gdaxHelpers';
 import CandleStickChartWithMACDIndicator from './CandleStickChartWithMACDIndicator';
@@ -19,13 +17,24 @@ import {
   updateProductId,
 } from '../actions';
 
+const style = {
+  table: {
+    margin: '0 0 0 2vw',
+    width: '70vw',
+    display: 'table-cell',
+  },
+  col: {
+    textAlign: 'right',
+  },
+};
+
 class StrategyChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
       start: null,
       end: null,
-    }
+    };
     this.getData = this.getData.bind(this);
     this.handleDateRangeChange = this.handleDateRangeChange.bind(this);
     this.handleProductIdChange = this.handleProductIdChange.bind(this);
@@ -46,6 +55,7 @@ class StrategyChart extends Component {
   }
 
   getData() {
+        console.log('GET DATAADATAADATAADATAADATAA')
     const { updateChart, productId } = this.props;
     let start;
     let end;
@@ -129,6 +139,7 @@ class StrategyChart extends Component {
     .catch((err) => {
       console.log('componentDidMount error: ', err);
     });
+    // this.getData();
   }
 
   render() {
@@ -149,7 +160,7 @@ class StrategyChart extends Component {
       { value: '1 Day', text: '1 Day' },
       { value: '1 Week', text: '1 Week' },
       { value: '1 Month', text: '1 Month' },
-      { value: '6 Month', text: '6 Month' },
+      { value: '6 Months', text: '6 Months' },
       { value: 'YTD', text: 'YTD' },
       { value: '1 Year', text: '1 Year' },
       { value: 'Max', text: 'Max' },
@@ -171,7 +182,7 @@ class StrategyChart extends Component {
                 </Table.Cell>
                 <Table.Cell>
                   <Dropdown
-                    defaultValue="1 Year"
+                    defaultValue="6 Months"
                     selection
                     options={dateRangeOptions}
                     onChange={this.handleDateRangeChange}

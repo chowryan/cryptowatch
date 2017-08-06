@@ -133,11 +133,11 @@ const calcSummaryStats = (priceData, startDate, endDate) => {
   let asset = priceData;
 
   if (startDate && endDate) {
-    console.log(startDate, endDate);
-    asset = asset.filter(data => data.date >= new Date(startDate) && data.date <= new Date(endDate));
+    asset = asset.filter(data => new Date(data.date) >= (new Date(startDate)) && new Date(data.date) <= (new Date(endDate)));
   }
 
   // Calculate Overall Return
+  console.log(asset);
   const first = asset[0];
   const last = asset[asset.length - 1];
   console.log('******', first, last);

@@ -30,7 +30,7 @@ class SummaryStats extends Component {
       console.log(files[0].name);
       const fileName = files[0].name;
       CSV.parseCSV(reader.result).then((strategyData) => {
-        const summaryStats = calcSummaryStats(strategyData);
+        const summaryStats = calcSummaryStats(strategyData, '1/1/00', '9/1/17');
         this.setState({ strategyData, summaryStats, fileName });
       });
     };

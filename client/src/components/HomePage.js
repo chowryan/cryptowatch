@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Card } from 'semantic-ui-react';
 import LiveDataTable from './LiveDataTable';
-import HomePageTweets from './HomePageTweets';
+import StrategyChart from './StrategyChart';
 
 const divStyle= {
-  height: '80vh'
+  height: '40vh'
 };
 
 class HomePage extends Component {
   render() {
     return (
       <div>
-        <Grid stackable padded style={divStyle}>
-          <Grid.Row stretched>
+        <Grid stackable padded>
+          <Grid.Row stretched style={divStyle}>
             <Grid.Column width={6}>
-              <Segment><LiveDataTable /></Segment>
+              <Segment>*StrategyChart*</Segment>
             </Grid.Column>
             <Grid.Column width={6}>
               <Segment>hello</Segment>
@@ -23,7 +23,7 @@ class HomePage extends Component {
               <Segment>*Reddit*</Segment>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row stretched>
+          <Grid.Row stretched style={divStyle}>
             <Grid.Column width={6}>
               <Segment><LiveDataTable /></Segment>
             </Grid.Column>

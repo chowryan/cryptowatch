@@ -7,6 +7,8 @@ import { TypeChooser } from 'react-stockcharts/lib/helper';
 
 import { getGDAXHistoricRates } from '../utils/gdaxHelpers';
 import CandleStickChartWithMACDIndicator from './CandleStickChartWithMACDIndicator';
+import AreaChartWithEdge from './AreaChartWithEdge';
+import AreaChart from './AreaChart';
 
 import {
   updateChart,
@@ -119,7 +121,7 @@ class StrategyChart extends Component {
     updateEndDate(end);
     updateStartDate(start);
     updateGranularity(granularity);
-    
+
     return getGDAXHistoricRates(productId, start, end, granularity)
     .then((res) => {
       updateChart(res.data);
@@ -130,13 +132,14 @@ class StrategyChart extends Component {
   }
 
   render() {
-    const { chartData, dateRange, productId } = this.props;
-    chartData.forEach((dataPoint) => {
-      dataPoint.date = new Date(dataPoint.date * 1000);
-    });
+    const { chartData, dateRange, productId, strategyData } = this.props;
     if (chartData.length === 0) {
       return <div>Loading...</div>;
     }
+    chartData.forEach((dataPoint) => {
+      dataPoint.date = new Date(dataPoint.date * 1000);
+    });
+
     const productIdOptions = [
       { value: 'BTC-USD', text: 'Bitcoin' },
       { value: 'ETH-USD', text: 'Ethereum' },
@@ -168,7 +171,7 @@ class StrategyChart extends Component {
                 </Table.Cell>
                 <Table.Cell>
                   <Dropdown
-                    defaultValue="1 Day"
+                    defaultValue="1 Year"
                     selection
                     options={dateRangeOptions}
                     onChange={this.handleDateRangeChange}
@@ -188,6 +191,8 @@ class StrategyChart extends Component {
           </Table>
           <Segment container padded>
             <CandleStickChartWithMACDIndicator data={chartData} />
+            {/* <AreaChartWithEdge data={strategyData} />  */}
+            {/* <AreaChart data={filteredStrategyData} />  */}
           </Segment>
         </Container>
       </div>
@@ -202,6 +207,7 @@ const mapStateToProps = (state) => {
     granularity: state.strategyChart.granularity,
     dateRange: state.strategyChart.dateRange,
     productId: state.strategyChart.productId,
+    strategyData: state.strategyChart.strategyData,
   };
 };
 

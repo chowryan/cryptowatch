@@ -1,5 +1,6 @@
 const initialState = {
   chartData: [],
+  strategyData: [],
   start: {},
   end: {},
   granularity: 0,
@@ -21,6 +22,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, { dateRange: action.dateRange });
     case 'UPDATE_PRODUCT_ID':
       return Object.assign({}, state, { productId: action.productId });
+    case 'UPDATE_STRATEGY_DATA':
+      return Object.assign({}, state, { strategyData: action.strategyData });
     default:
       return state;
   }

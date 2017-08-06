@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ReactFileReader from 'react-file-reader';
 import DataRow from './DataRow';
 import StatsTable from './StatsTable';
@@ -7,6 +9,10 @@ import CSV from '../utils/csv';
 import { calcSummaryStats } from '../utils/dataAnalysis';
 import { Icon, Container, Input, Divider, Segment, Button } from 'semantic-ui-react';
 import './css/SummaryStats.css';
+
+import {
+  updateStrategyData,
+} from '../actions';
 
 class SummaryStats extends Component {
   constructor(props) {
@@ -32,6 +38,9 @@ class SummaryStats extends Component {
       CSV.parseCSV(reader.result).then((strategyData) => {
         const summaryStats = calcSummaryStats(strategyData, '1/1/00', '9/1/17');
         this.setState({ strategyData, summaryStats, fileName });
+        console.log(summaryStats);
+        const { updateStrategyData } = this.props;
+        updateStrategyData(strategyData);
       });
     };
   }
@@ -59,4 +68,17 @@ class SummaryStats extends Component {
   }
 }
 
-export default SummaryStats;
+const mapStateToProps = (state) => {
+  return {
+    strategyData: state.strategyChart.strategyData,
+  };
+};
+
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    updateStrategyData,
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(SummaryStats);

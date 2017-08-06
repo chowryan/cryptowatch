@@ -5,6 +5,7 @@ import News from './News';
 import HomePage from './HomePage';
 import LiveDataTable from './LiveDataTable';
 import StrategyChart from './StrategyChart';
+import StrategyCSVChart from './StrategyCSVChart';
 import SummaryStats from './SummaryStats';
 
 const panes = [

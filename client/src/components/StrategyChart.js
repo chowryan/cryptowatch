@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import { Dropdown, Button } from 'semantic-ui-react';
+import { Dropdown, Container, Input, Table, Segment, Button } from 'semantic-ui-react';
 import { TypeChooser } from 'react-stockcharts/lib/helper';
 
 import { getGDAXHistoricRates } from '../utils/gdaxHelpers';
@@ -16,18 +16,6 @@ import {
   updateDateRange,
   updateProductId,
 } from '../actions';
-
-
-const style = {
-  table: {
-    margin: '0 0 0 2vw',
-    width: '70vw',
-    display: 'table-cell',
-  },
-  col: {
-    textAlign: 'right',
-  }
-};
 
 class StrategyChart extends Component {
   constructor(props) {
@@ -165,37 +153,43 @@ class StrategyChart extends Component {
     ];
     return (
       <div>
-        <table style={style.table}>
-          <tbody>
-            <tr>
-              <td>
-                <Dropdown
-                  defaultValue="BTC-USD"
-                  search
-                  selection
-                  options={productIdOptions}
-                  onChange={this.handleProductIdChange}
-                />
-              </td>
-              <td style={style.col}>
-                <Dropdown
-                  defaultValue="1 Day"
-                  selection
-                  options={dateRangeOptions}
-                  onChange={this.handleDateRangeChange}
-                />
-              </td>
-              <td style={style.col}>
-                <input type="date" name="start" onChange={this.setStart}></input>
-                <input type="date" name="end" onChange={this.setEnd}></input>
-              </td>
-              <td style={style.col}>
-                <Button primary onClick={this.getData}>SEARCH</Button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <CandleStickChartWithMACDIndicator data={chartData} />
+        <Container>
+          <Table textAlign="center" stackable>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>
+                  <Dropdown
+                    defaultValue="BTC-USD"
+                    search
+                    selection
+                    options={productIdOptions}
+                    onChange={this.handleProductIdChange}
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Dropdown
+                    defaultValue="1 Day"
+                    selection
+                    options={dateRangeOptions}
+                    onChange={this.handleDateRangeChange}
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Input type="date" name="start" onChange={this.setStart}></Input>
+                </Table.Cell>
+                <Table.Cell>
+                  <Input type="date" name="end" onChange={this.setEnd}></Input>
+                </Table.Cell>
+                <Table.Cell>
+                  <Button primary onClick={this.getData}>SEARCH</Button>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
+          <Segment container padded>
+            <CandleStickChartWithMACDIndicator data={chartData} />
+          </Segment>
+        </Container>
       </div>
     );
   }

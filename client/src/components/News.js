@@ -85,6 +85,7 @@ class News extends Component {
           <Grid.Row>
             <Grid.Column width={8}>
               <Table padded>
+                <Table.Header size="large">
                   <Table.Row>
                     <Table.HeaderCell textAlign="center" colSpan="2">
                       <span style={{ marginRight: 20 }}>Reddit</span>
@@ -93,6 +94,7 @@ class News extends Component {
                       <Button onClick={this.handleClick} color="violet">New</Button>
                     </Table.HeaderCell>
                   </Table.Row>
+                </Table.Header>
                 <Table.Body>
                 {this.state.loading ?
                   <Table.Row style={{ height: '300vh' }}>
@@ -113,16 +115,23 @@ class News extends Component {
                 </Table.Body>
               </Table>
             </Grid.Column>
+
+
             <Grid.Column width={8}>
               <Table padded>
+                <Table.Header size="large">
                   <Table.Row>
+                    <Table.HeaderCell textAlign="center" colSpan="2">
+                      <span style={{ marginRight: 20 }}>Twitter</span>
+                    </Table.HeaderCell>
                   </Table.Row>
+                </Table.Header>
                 <Table.Body>
                   <div style={divStyle}>
                     {tweets.map((item, i) => (
                       <Table.Row key={i}>
                         <Table.Cell>
-                          <Table.Row><a>{item.user.name}</a></Table.Row>
+                          <Table.Row>{item.user.name}</Table.Row>
                           <Table.Row><a>{item.text}</a></Table.Row>
                           {/*<Tweet
                             data={{

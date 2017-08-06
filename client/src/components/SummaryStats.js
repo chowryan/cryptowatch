@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactFileReader from 'react-file-reader';
-import DataRow from './DataRow';
 import StatsTable from './StatsTable';
 
 import CSV from '../utils/csv';

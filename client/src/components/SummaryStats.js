@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import { bindActionCreators } from 'redux';
+=======
+
+>>>>>>> update summaryStats for benchmark
 import ReactFileReader from 'react-file-reader';
 import StatsTable from './StatsTable';
 
@@ -45,6 +49,9 @@ class SummaryStats extends Component {
   }
 
   render() {
+    const { chartData, start, end, dateRange, productId } = this.props;
+    const benchmarkStats = calcSummaryStats(chartData, start, end);
+    console.log(benchmarkStats);
     return (
       <div>
         <Container>
@@ -59,7 +66,11 @@ class SummaryStats extends Component {
               </Button>
             </div>
             <Divider hidden />
-            <StatsTable summaryStats={this.state.summaryStats} dataLabel={this.state.fileName} />
+            <StatsTable
+              summaryStats={this.state.summaryStats}
+              dataLabel={this.state.fileName}
+              productId={productId}
+            />
           </Segment>
         </Container>
       </div>
@@ -67,17 +78,13 @@ class SummaryStats extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    strategyData: state.strategyChart.strategyData,
-  };
-};
+const mapStateToProps = state => ({
+  chartData: state.strategyChart.chartData,
+  start: state.strategyChart.start,
+  end: state.strategyChart.end,
+  granularity: state.strategyChart.granularity,
+  dateRange: state.strategyChart.dateRange,
+  productId: state.strategyChart.productId,
+});
 
-
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    updateStrategyData,
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, matchDispatchToProps)(SummaryStats);
+export default connect(mapStateToProps)(SummaryStats);

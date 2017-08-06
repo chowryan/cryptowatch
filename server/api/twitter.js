@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const Twitter = require('twitter-node-client').Twitter;
 const Keys = require('../../config/apiKeys').twitter;
 const watson = require('../watsonHelpers').analyzeSentiment;
@@ -86,4 +87,15 @@ const getAll = (keyword, cb) => {
   getTweets(word, cb);
 };
 
-module.exports = getAll;
+const fetchTweets = () => {
+  return new Promise((resolve, reject) => {
+    twitter.getSearch({ q: 'cryptocurrency', count: 1000 }, (err) => {
+      reject(err);
+    }, (data) => {
+      resolve(data);
+    });
+  });
+};
+
+module.exports.getAll = getAll;
+module.exports.fetchTweets = fetchTweets;

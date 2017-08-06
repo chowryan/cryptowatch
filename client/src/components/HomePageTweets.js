@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Feed, Divider } from 'semantic-ui-react';
+import { Feed, Header } from 'semantic-ui-react';
 
 class HomePageTweets extends Component {
   constructor(props) {
@@ -22,11 +22,12 @@ class HomePageTweets extends Component {
   render() {
     const divStyle = {
       overflow: 'auto',
-      height: '100vh',
+      height: '36vh',
     };
 
     return (
       <div style={divStyle}>
+        <Header as="h4">Twitter</Header>
         <Feed>
           {this.state.data.map((entry) => {
             return (<Feed.Event>
@@ -35,7 +36,9 @@ class HomePageTweets extends Component {
               </Feed.Label>
               <Feed.Content>
                 <Feed.Summary>
-                  <Feed.User>{entry.user.name}</Feed.User>{entry.text}
+                  <Feed.User>{entry.user.name}</Feed.User>
+                  <br />
+                  {entry.text}
                   {/* <Divider horizontal>{entry.created_at}</Divider> */}
                 </Feed.Summary>
               </Feed.Content>

@@ -59,7 +59,7 @@ class WatsonSummary extends Component {
       });
 
       ctx = document.getElementById('watson-chart');
-      ctx.height = 200;
+      // ctx.height = 200;
 
       if (barChart !== undefined) barChart.destroy();
 
@@ -95,7 +95,7 @@ class WatsonSummary extends Component {
   render() {
     return (
       <div className="watson-bg">
-        <canvas width="50px" onLoad={this.generateChart} height="100px" id="watson-chart" />
+        <canvas width="50px" onLoad={this.generateChart} height="32px" id="watson-chart" />
       </div>
     );
   }

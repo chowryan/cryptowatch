@@ -5,15 +5,12 @@ const getRedditPosts = (subreddit = 'bitcoin', sortBy = 'hot', count = 0, limit 
   return axios.get(redditURL)
   .then((res) => {
     const data = res.data.data.children;
-    console.log(data, data.length);
-    return {data, error: null};
+    return { data, error: null };
   })
   .catch((error) => {
     console.log('getRedditPosts error: ', error);
-    return {data: null, error};
+    return { data: null, error };
   });
 };
-
-getRedditPosts();
 
 module.exports.getRedditPosts = getRedditPosts;

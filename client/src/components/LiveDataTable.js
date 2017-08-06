@@ -69,9 +69,8 @@ class LiveDataTable extends Component {
 
   render() {
     return (
-      <div>
-        <Container>
-          <Table padded celled selectable>
+      <div style={{ height: '250' }}>
+          <Table selectable>
             <Table.Header>
               <Table.Row textAlign="center">
                 <Table.HeaderCell singleLine>Exchanges</Table.HeaderCell>
@@ -125,8 +124,7 @@ class LiveDataTable extends Component {
                 <Table.Cell disabled>{this.state.XRP_GEMINI}</Table.Cell>
               </Table.Row>
             </Table.Body>
-          </Table> 
-        </Container>
+          </Table>
       </div>
     );
   }

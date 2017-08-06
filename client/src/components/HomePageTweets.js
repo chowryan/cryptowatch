@@ -35,7 +35,9 @@ class HomePageTweets extends Component {
               </Feed.Label>
               <Feed.Content>
                 <Feed.Summary>
-                  <Feed.User>{entry.user.name}</Feed.User>{entry.text}
+                  <Feed.User>{entry.user.name}</Feed.User>
+                  <br />
+                  {entry.text}
                   {/* <Divider horizontal>{entry.created_at}</Divider> */}
                 </Feed.Summary>
               </Feed.Content>

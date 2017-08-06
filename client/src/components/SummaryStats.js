@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import ReactFileReader from 'react-file-reader';
 import StatsTable from './StatsTable';
@@ -118,4 +119,10 @@ const mapStateToProps = state => ({
   productId: state.strategyChart.productId,
 });
 
-export default connect(mapStateToProps)(SummaryStats);
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    updateStrategyData,
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(SummaryStats);

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import numeral from 'numeral';
 
 const StatsTable = ({ summaryStats }) => {
-
   const { annualizedReturn, annualizedVolatility, countMonthlyReturns,
     maxDrawdown, maxDrawdownDate, percentMonthlyPositive, sharpe,
     stdDev, timePeriod, worstMonth, ytdReturn,

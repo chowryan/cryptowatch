@@ -11,7 +11,7 @@ class WatsonSummary extends Component {
     super(props);
     this.state = {
       watsonChart: 'watsonChart',
-      companiesSummary: [['bitcoin', 2, 0.12], ['ethereum', 13, -0.2], ['dash', 8, 0.21], ['litecoin', 6, 0.11], ['ripple', 4, 0.20], ['IOTA', 2, 0.15], ['Zcash', 1, 0.10]],
+      companiesSummary: [['bitcoin', 2, 0.72], ['litecoin', 13, 0.45], ['dash', 8, 0.21], ['ethereum', 6, 0.2], ['ripple', 4, 0.10], ['IOTA', 2, -0.15], ['Zcash', 1, -0.19]],
     };
 
     this.generateChart = this.generateChart.bind(this);
@@ -25,23 +25,19 @@ class WatsonSummary extends Component {
   }
 
   componentDidUpdate() {
-    // this.update();
     this.generateChart();
   }
 
   update() {
-    axios.get('/retrieveCryptoMoods', { list: ['Bitcoin', 'Ethereum', 'Dash', 'Litecoin', 'Ripple'] })
-    .then( response => {
-
-    })
-    .catch( err => {
-      console.error(err);
-    }
-
-
-
+  //   axios.post('/retrieveCryptoMoods', { list: ['Bitcoin', 'Ethereum', 'Dash', 'Litecoin', 'Ripple'] })
+  //   .then( response => {
+  //     console.log(response);
+  //   })
+  //   .catch( err => {
+  //     console.error(err);
+  //   });
     this.setState({
-      companiesSummary: [['bitcoin', , 0.12], ['ethereum', , -0.2], ['dash', 8, 0.21], ['litecoin', 6, 0.11], ['ripple', 4, 0.20]],
+      companiesSummary: [['bitcoin', 2, 0.72], ['litecoin', 13, 0.45], ['dash', 8, 0.21], ['ethereum', 6, 0.2], ['ripple', 4, 0.10], ['IOTA', 2, -0.15], ['Zcash', 1, -0.19]],
     });
   }
 

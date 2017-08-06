@@ -6,43 +6,6 @@ import HomePageTweets from './HomePageTweets';
 const divStyle= {
   height: '80vh'
 };
-// const styles = {
-//   gridRow: 
-//   container: {
-//     display: 'flex',
-//     flexDirection: 'row',
-//   },
-//   left: {
-//     width: '80%',
-//     height: '100%',
-//     display: 'flex',
-//     flexDirection: 'column',
-//   },
-//   right: {
-//     width: '20%',
-//     height: '100%',
-//     display: 'flex',
-//     flexDirection: 'column',
-//   },
-//   leftHigh: {
-//     display: 'flex',
-//     flexDirection: 'row',
-//   },
-//   leftLow: {
-//     display: 'flex',
-//     flexDirection: 'row',
-//   },
-//   card: {
-//     width: '50%',
-//     height: 300,
-//     margin: 5,
-//   },
-//   column: {
-//     width: '100%',
-//     height: 300,
-//     margin: 5,
-//   },
-// };
 
 class HomePage extends Component {
   render() {

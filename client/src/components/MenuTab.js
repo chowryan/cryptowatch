@@ -8,7 +8,7 @@ import StrategyChart from './StrategyChart';
 import SummaryStats from './SummaryStats';
 
 const panes = [
-  { menuItem: 'Home', render: () => <HomePage /> },
+  { menuItem: { key: 'eye', icon: 'eye', content: 'crypto' }, render: () => <HomePage /> },
   { menuItem: 'Live Data', render: () => <Tab.Pane attached={false}><LiveDataTable /></Tab.Pane> },
   { menuItem: 'Analytics', render: () => <Tab.Pane attached={false}><StrategyChart /><SummaryStats /></Tab.Pane> },
   { menuItem: 'News', render: () => <Tab.Pane attached={false}><News /></Tab.Pane> },

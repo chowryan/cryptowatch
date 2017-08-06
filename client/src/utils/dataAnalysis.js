@@ -37,14 +37,14 @@ const calcRiskPremiums = (returns) => { // , rfData
 
 const getAnnualizedReturn = (date1, price1, date2, price2) => {
   const days = Date.daysBetween(date1, date2);
-  return Math.pow((price2 / price1), (365.25 / days)) - 1;
+  return ((price2 / price1) ** (365.25 / days)) - 1;
 };
 
 const getIntradayReturns = (array) => {
   const result = [];
   for (let i = 1; i < array.length; i += 1) {
     const date = array[i].date;
-    const dayReturn = array[i].price / array[i - 1].price - 1;
+    const dayReturn = (array[i].price / array[i - 1].price) - 1;
     result.push({ date, dayReturn });
   }
   return result;

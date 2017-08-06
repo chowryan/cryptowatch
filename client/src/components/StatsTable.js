@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import numeral from 'numeral';
 
-const StatsTable = ({ summaryStats }) => {
+const StatsTable = ({ summaryStats, dataLabel }) => {
   const { annualizedReturn, annualizedVolatility, countMonthlyReturns,
     maxDrawdown, maxDrawdownDate, percentMonthlyPositive, sharpe,
     stdDev, timePeriod, worstMonth, ytdReturn,
@@ -9,6 +9,12 @@ const StatsTable = ({ summaryStats }) => {
 
   return (
     <table className="ui compact celled definition table">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>{dataLabel}</th>
+        </tr>
+      </thead>
       <tbody>
         <tr>
           <td>Date Range</td>
@@ -36,7 +42,7 @@ const StatsTable = ({ summaryStats }) => {
         </tr>
         <tr>
           <td>% Positive Months</td>
-          <td>{numeral(percentMonthlyPositive).format('0,0.00%')}</td>
+          <td>{numeral(percentMonthlyPositive).format('0,0.00%')} ({numeral(countMonthlyReturns).format('0,0')} observations)</td>
         </tr>
         <tr>
           <td>Minimum Monthly Return</td>

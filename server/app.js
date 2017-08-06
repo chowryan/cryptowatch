@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const path = require('path');
+const Promise = require('bluebird');
 const { getAll, fetchTweets } = require('./api/twitter');
 
 const app = express();
@@ -27,6 +28,24 @@ app.get('/retrieveCryptoMood/:source/:keyword', (req, res) => {
     res.send({ error: 'currently unavailble' });
   } else { res.send({ error: 'invalid source' }); }
 });
+
+// app.post('/retrieveCryptoMoods', (req, res) => {
+
+//   const searchTextArray = req.body.list;
+//   let returnArray = [];
+//   return Promise.each((searchTextArray, searchText) => {
+//     return getAll(searchText)
+//       .then((emotions) => {
+//         const { joy, sadness, anger, disgust, fear } = emotions;
+//         returnArray.push([searchText, null, (joy * 4) - sadness - anger - disgust - fear]);
+//       })
+//     .then((searchTextArray) => {
+//       return Promise.resolve(res.send(returnArray));
+//     })
+//     .catch((err) => { console.log(err); })
+//   });
+// });
+
 
 app.get('/fetchTweets', (req, res) => {
   return fetchTweets()

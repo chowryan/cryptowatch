@@ -46,7 +46,7 @@ const config = {
     //   minRatio: 0.8,
     // }),
   ],
-  devtool: '#eval-source-map',
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     port: 1337,

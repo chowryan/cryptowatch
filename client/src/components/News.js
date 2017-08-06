@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Grid, Table, Image, Button, Loader, Dimmer } from 'semantic-ui-react';
-import './css/News.css'
+import axios from 'axios';
 import { getRedditPosts } from '../utils/reddit';
+// import Tweet from 'react-tweet';
+import './css/News.css';
 import {
-  updateNews,
+  updateNews, updateTweets,
 } from '../actions';
 
 const style = {
@@ -27,6 +29,7 @@ class News extends Component {
     };
     this.updateReddit = this.updateReddit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.searchTwitter = this.searchTwitter.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +47,7 @@ class News extends Component {
     .then((res) => {
       updateNews(res.data.slice(1));
       this.setState({ loading: false });
+      this.searchTwitter();
     })
     .catch((err) => {
       console.log(err);
@@ -54,9 +58,24 @@ class News extends Component {
     this.updateReddit(obj.children.toLowerCase());
   }
 
+    searchTwitter() {
+      const { updateTweets } = this.props;
+      axios.get('/searchTwitter')
+      .then((response) => {
+        console.log('hello: ', response.data.tweets);
+        updateTweets(response.data.tweets);
+        // sentimentScore and tweets
+        // console.log(response.data);
+        console.log('successfully received all tweets');
+      })
+      .catch((err) => {
+        console.error('failed to get tweets!', err);
+      });
+    }
+
   render() {
-    const { news } = this.props;
-    const divStyle = {
+    const { news, tweets } = this.props;
+    const divStyle= {
       overflow: 'auto',
       height: '100vh',
     };
@@ -66,7 +85,6 @@ class News extends Component {
           <Grid.Row>
             <Grid.Column width={8}>
               <Table padded>
-                <Table.Header size="large">
                   <Table.Row>
                     <Table.HeaderCell textAlign="center" colSpan="2">
                       <span style={{ marginRight: 20 }}>Reddit</span>
@@ -75,7 +93,6 @@ class News extends Component {
                       <Button onClick={this.handleClick} color="violet">New</Button>
                     </Table.HeaderCell>
                   </Table.Row>
-                </Table.Header>
                 <Table.Body>
                 {this.state.loading ?
                   <Table.Row style={{ height: '300vh' }}>
@@ -98,13 +115,40 @@ class News extends Component {
             </Grid.Column>
             <Grid.Column width={8}>
               <Table padded>
-                <Table.Header size="large">
                   <Table.Row>
-                    <Table.HeaderCell textAlign="center" colSpan="2">Twitter</Table.HeaderCell>
                   </Table.Row>
-                </Table.Header>
                 <Table.Body>
-                  {/*something here for twitter  */}
+                  <div style={divStyle}>
+                    {tweets.map((item, i) => (
+                      <Table.Row key={i}>
+                        <Table.Cell>
+                          <Table.Row><a>{item.user.name}</a></Table.Row>
+                          <Table.Row><a>{item.text}</a></Table.Row>
+                          {/*<Tweet
+                            data={{
+                                id: item.id,
+                                user: {
+                                  name: item.user.name,
+                                  screen_name: item.user.screen_name,
+                                  profile_image_url: item.user.profile_image_url,
+                                },
+                                text: item.text,
+                                created_at: item.created_at,
+                                favorite_count: item.favorite_count,
+                                retweet_count: item.retweet_count,
+                                entities: {
+                                  media: item.entities.media,
+                                  urls: item.entities.urls,
+                                  user_mentions: item.entities.user_mentions,
+                                  hashtags: item.entities.hashtags,
+                                  symbols: item.entities.symbols
+                                }}
+                            }
+                          />*/}
+                        </Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </div>
                 </Table.Body>
               </Table>
             </Grid.Column>
@@ -118,12 +162,14 @@ class News extends Component {
 const mapStateToProps = (state) => {
   return {
     news: state.news.news,
+    tweets: state.news.tweets,
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
     updateNews,
+    updateTweets,
   }, dispatch);
 };
 

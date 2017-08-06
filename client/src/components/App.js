@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import MenuTab from './MenuTab';
 import News from './News';
 import axios from 'axios';
-import Tweet from 'react-tweet'
+
 import {
   Button,
   Container,
@@ -42,11 +42,10 @@ class App extends Component {
     super(props);
 
     this.startSocket = this.startSocket.bind(this);
-    this.searchTwitter = this.searchTwitter.bind(this);
   }
 
   componentDidMount() {
-    this.startSocket();
+    // this.startSocket();
   }
 
   startSocket() {
@@ -54,18 +53,6 @@ class App extends Component {
     this.socket.on('connect', () => {
       // console.log('client side socket connected!');
       this.socket.emit('hello', 'hi');
-    });
-  }
-
-  searchTwitter() {
-    axios.get('/searchTwitter')
-    .then((response) => {
-      // sentimentScore and tweets
-      // console.log(response.data);
-      console.log('successfully received all tweets');
-    })
-    .catch((err) => {
-      console.error('failed to get tweets!', err);
     });
   }
 

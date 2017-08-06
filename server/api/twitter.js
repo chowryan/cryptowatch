@@ -18,7 +18,7 @@ const getAll = (keyword, cb) => {
   let allTweets = [];
 
   const getTweets = (keyword, cb) => {
-    twitter.getSearch({'q': keyword, 'count': 10}, error, success);
+    twitter.getSearch({'q': keyword, 'count': 1000}, error, success);
   }
 
   const error = (err, response, body) => {
@@ -30,14 +30,28 @@ const getAll = (keyword, cb) => {
     let tweetString = '';
     let twitterObj = JSON.parse(data);
 
-    // console.log('twitterObj is: ', twitterObj);
+    // console.log('twitterObj is: ', twitterObj.user);
 
     if (twitterObj.statuses.length > 0) {
       twitterObj.statuses.map((item, index) => {
         let tweet = {
           id: item.id,
+          user: {
+            name: item.user.name,
+            screen_name: item.user.screen_name,
+            profile_image_url: item.user.profile_image_url,
+          },
           text: item.text,
           created_at: item.created_at,
+          favorite_count: item.favorite_count,
+          retweet_count: item.retweet_count,
+          entities: {
+            media: item.entities.media,
+            urls: item.entities.url,
+            user_mentions: item.entities.user_mentions,
+            hashtags: item.entities.hashtags,
+            symbols: item.entities.symbols,
+          }
         }
         allTweets.push(tweet);
         tweetString += item.text;

@@ -54,3 +54,10 @@ export const updateProductId = (productId) => {
     productId,
   };
 };
+
+export const updateTweets = (tweets) => {
+  return {
+    type: 'UPDATE_TWEETS',
+    tweets,
+  };
+};

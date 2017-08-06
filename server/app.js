@@ -16,8 +16,8 @@ app.get('/searchTwitter', (req, res) => {
   // const searchText = req.body.text;
   const searchText = 'bitcoin';
   getTweets(searchText, (emotions, allTweets) => {
-    // console.log('emotions: ', emotions);
-    // console.log('allTweets: ', allTweets);
+    console.log('emotions: ', emotions);
+    console.log('allTweets: ', allTweets);
     let searchResult = {
       sentimentScore: emotions.joy * 4 - emotions.sadness - emotions.anger - emotions.disgust - emotions.fear,
       tweets: allTweets,

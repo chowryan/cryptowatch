@@ -13,12 +13,6 @@ const keys = {
 
 const twitter = new Twitter(keys);
 
-
-
-
-
-
-
 const getAll = (keyword, cb) => {
 
   let allTweets = [];

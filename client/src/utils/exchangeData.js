@@ -45,7 +45,7 @@ const formatData = (exchange, bids, asks) => {
   return result;
 };
 
-const getGDAXData = (product) => new Promise((resolve, reject) => {
+const getGDAXData = product => new Promise((resolve, reject) => {
   axios.get(`https://api.gdax.com/products/${product}/book?level=2`)
     .then((response) => {
       const data = response.data;
@@ -55,7 +55,7 @@ const getGDAXData = (product) => new Promise((resolve, reject) => {
       const asks = data.asks.map(ask => ({ quantity: ask[1], price: ask[0] }));
       resolve(formatData(exchange, bids, asks));
     })
-    .catch((error) => reject({ error }));
+    .catch(error => reject({ error }));
 });
 
 Promise.all([getGDAXData('BTC-USD'), getGDAXData('ETH-USD')])

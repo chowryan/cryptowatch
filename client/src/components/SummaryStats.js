@@ -14,7 +14,9 @@ class SummaryStats extends Component {
     this.state = {
       strategyData: [],
       summaryStats: {},
-    }
+      fileName: '',
+    };
+
     this.handleFiles = this.handleFiles.bind(this);
   }
 
@@ -25,16 +27,13 @@ class SummaryStats extends Component {
     const reader = new FileReader();
     reader.readAsText(files[0]);
     reader.onload = (e) => {
-      CSV.parseCSV(reader.result).then(strategyData => {
-        console.log(strategyData);
+      console.log(files[0].name);
+      const fileName = files[0].name;
+      CSV.parseCSV(reader.result).then((strategyData) => {
         const summaryStats = calcSummaryStats(strategyData);
-        console.log(summaryStats);
-        this.setState({ strategyData, summaryStats });
+        this.setState({ strategyData, summaryStats, fileName });
       });
-    }
-    // console.log(files[0]);
-    // console.log(files.fileList);
-    // summaryStats(files[0]);
+    };
   }
 
   render() {
@@ -51,7 +50,7 @@ class SummaryStats extends Component {
             <i className="attach icon"></i>
           </div>
         </div>
-        <StatsTable summaryStats={this.state.summaryStats} />
+        <StatsTable summaryStats={this.state.summaryStats} dataLabel={this.state.fileName} />
       </div>
     );
   }

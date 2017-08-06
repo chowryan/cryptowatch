@@ -32,8 +32,8 @@ const StatsTable = ({ summaryStats, benchmarkStats, dataLabel, productId }) => {
           </Table.Row>
           <Table.Row>
             <Table.Cell>Annualized Volatility</Table.Cell>
-            <Table.Cell>{numeral(benchmarkStats.annualizedReturn).format('0,0.0%')}</Table.Cell>
-            <Table.Cell>{numeral(annualizedReturn).format('0,0.0%')}</Table.Cell>
+            <Table.Cell>{numeral(benchmarkStats.annualizedVolatility).format('0,0.0%')}</Table.Cell>
+            <Table.Cell>{numeral(annualizedVolatility).format('0,0.0%')}</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell>Sharpe Ratio</Table.Cell>

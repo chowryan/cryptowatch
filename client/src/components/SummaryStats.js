@@ -74,13 +74,26 @@ class SummaryStats extends Component {
         <Container>
           <Segment>
             <div className="ui action input">
-              <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                <Input type="text" placeholder="Upload CSV File" disabled />
-                <Input type="file" />
-              </ReactFileReader>
-              <Button icon>
-                <Icon name="attach"/>
-              </Button>
+              <table>
+                <tr>
+                  <td>
+                    <Button onClick={this.handleUpdateBenchmark} >
+                      Update Benchmark
+                    </Button>
+                  </td>
+                  <td>
+                    <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
+                      <Input type="text" placeholder="Upload CSV File" disabled />
+                      <Input type="file" />
+                    </ReactFileReader>
+                  </td>
+                  <td>
+                    <Button icon>
+                      <Icon name="attach" />
+                    </Button>
+                  </td>
+                </tr>
+              </table>
             </div>
             <Divider hidden />
             <StatsTable

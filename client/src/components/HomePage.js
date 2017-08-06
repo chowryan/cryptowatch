@@ -20,18 +20,15 @@ class HomePage extends Component {
               <Segment><HomePageStrategyChart /></Segment>
             </Grid.Column>
             <Grid.Column width={6}>
-              <Segment>hello</Segment>
+              <Segment><WatsonSummary /></Segment>
             </Grid.Column>
             <Grid.Column width={4} height={3}>
               <Segment><HomePageTweets /></Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row stretched style={divStyle}>
-            <Grid.Column width={6} >
+            <Grid.Column width={12} >
               <LiveDataTable />
-            </Grid.Column>
-            <Grid.Column width={6}>
-              <Segment><WatsonSummary /></Segment>
             </Grid.Column>
             <Grid.Column width={4}>
               <Segment> <Calculator /></Segment>

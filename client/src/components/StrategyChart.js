@@ -6,6 +6,7 @@ import { Dropdown, Button } from 'semantic-ui-react';
 import { TypeChooser } from 'react-stockcharts/lib/helper';
 
 import { getGDAXHistoricRates } from '../utils/gdaxHelpers';
+import CandleStickChartWithMACDIndicator from './CandleStickChartWithMACDIndicator';
 
 import {
   updateChart,
@@ -15,8 +16,6 @@ import {
   updateDateRange,
   updateProductId,
 } from '../actions';
-
-import CandleStickChartWithMACDIndicator from './CandleStickChartWithMACDIndicator';
 
 
 const style = {
@@ -33,13 +32,43 @@ const style = {
 class StrategyChart extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      start: null,
+      end: null,
+    }
     this.getData = this.getData.bind(this);
     this.handleDateRangeChange = this.handleDateRangeChange.bind(this);
     this.handleProductIdChange = this.handleProductIdChange.bind(this);
+    this.setStart = this.setStart.bind(this);
+    this.setEnd = this.setEnd.bind(this);
+  }
+
+  setStart(event) {
+    this.setState({
+      start: event.target.value,
+    });
+  }
+
+  setEnd(event) {
+    this.setState({
+      end: event.target.value,
+    });
   }
 
   getData() {
-    const { updateChart, productId, start, end, granularity } = this.props;
+    const { updateChart, productId } = this.props;
+    let start;
+    let end;
+    let granularity;
+    if (this.state.start && this.state.end) {
+      start = new Date(this.state.start);
+      end = new Date(this.state.end);
+      granularity = (end - start) / (200 * 1000);
+    } else {
+      start = this.props.start;
+      end = this.props.end;
+      granularity = this.props.granularity;
+    }
     return getGDAXHistoricRates(productId, start, end, granularity)
     .then((res) => {
       updateChart(res.data);
@@ -49,13 +78,14 @@ class StrategyChart extends Component {
     });
   }
 
-  handleDateRangeChange(event, index, value) {
+  handleDateRangeChange(event, data) {
     const {
       updateEndDate,
       updateStartDate,
       updateGranularity,
       updateDateRange,
     } = this.props;
+    const { value } = data;
     updateDateRange(value);
     const endDate = new Date();
     updateEndDate(endDate);
@@ -80,9 +110,9 @@ class StrategyChart extends Component {
     updateGranularity(granularity);
   }
 
-  handleProductIdChange(event, index, value) {
+  handleProductIdChange(event, data) {
     const { updateProductId } = this.props;
-    updateProductId(value);
+    updateProductId(data.value);
   }
 
   componentDidMount() {
@@ -139,10 +169,25 @@ class StrategyChart extends Component {
           <tbody>
             <tr>
               <td>
-                <Dropdown placeholder='Currency' search selection options={productIdOptions} />
+                <Dropdown
+                  defaultValue="BTC-USD"
+                  search
+                  selection
+                  options={productIdOptions}
+                  onChange={this.handleProductIdChange}
+                />
               </td>
               <td style={style.col}>
-                <Dropdown selection options={dateRangeOptions} />
+                <Dropdown
+                  defaultValue="1 Day"
+                  selection
+                  options={dateRangeOptions}
+                  onChange={this.handleDateRangeChange}
+                />
+              </td>
+              <td style={style.col}>
+                <input type="date" name="start" onChange={this.setStart}></input>
+                <input type="date" name="end" onChange={this.setEnd}></input>
               </td>
               <td style={style.col}>
                 <Button primary onClick={this.getData}>SEARCH</Button>

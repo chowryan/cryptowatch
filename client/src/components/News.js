@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getRedditPosts } from '../utils/reddit';
-import './css/News.css';
+import { Table, Image } from 'semantic-ui-react';
+import './css/News.css'
 import {
   updateNews,
 } from '../actions';
@@ -29,18 +30,17 @@ class News extends Component {
     const { news } = this.props;
     return (
       <div>
-        <h1>News</h1>
-        <table>
-          <tbody>
+        <Table celled striped>
+          <Table.Body>
             {news.map((item, i) => (
-              <tr key={i}>
-                <td><img alt="news-images" className="newsimages" src={item.image} /></td>
-                <td>{item.title}</td>
-                <td><a href={item.url}>LINK</a></td>
-              </tr>
+              <Table.Row key={i}>
+                <Table.Cell><Image src={item.image} size="mini" shape='rounded'/></Table.Cell>
+                <Table.Cell>{item.title}</Table.Cell>
+                <Table.Cell><a href={item.url}>LINK</a></Table.Cell>
+              </Table.Row>
             ))}
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table>
       </div>
     );
   }

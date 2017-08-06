@@ -11,4 +11,3 @@ export const updateNews = (news) => {
     type: 'UPDATE_NEWS',
     news,
   };
-};

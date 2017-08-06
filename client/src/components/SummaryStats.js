@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import { bindActionCreators } from 'redux';
-=======
 
->>>>>>> update summaryStats for benchmark
 import ReactFileReader from 'react-file-reader';
 import StatsTable from './StatsTable';
 
@@ -75,7 +71,6 @@ class SummaryStats extends Component {
     const { chartData, start, end, dateRange, productId } = this.props;
     return (
       <div>
-<<<<<<< HEAD
         <Container>
           <Segment>
             <div className="ui action input">
@@ -92,41 +87,10 @@ class SummaryStats extends Component {
               summaryStats={this.state.summaryStats}
               dataLabel={this.state.fileName}
               productId={productId}
+              benchmarkStats={this.state.benchmarkStats}
             />
           </Segment>
         </Container>
-=======
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <div className="ui action input">
-                  <button className="ui button" onClick={this.handleUpdateBenchmark}>Update Benchmark</button>
-                </div>
-              </td>
-              <td>
-                <div className="ui action input">
-                  <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                    <div>
-                      <input type="text" placeholder="Upload CSV File" disabled />
-                      <input type="file" />
-                    </div>
-                  </ReactFileReader>
-                  <div className="ui icon button">
-                    <i className="attach icon"></i>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <StatsTable
-          summaryStats={this.state.summaryStats}
-          dataLabel={this.state.fileName}
-          productId={productId}
-          benchmarkStats={this.state.benchmarkStats}
-        />
->>>>>>> summary stats: calc & display benchmark
       </div>
     );
   }
